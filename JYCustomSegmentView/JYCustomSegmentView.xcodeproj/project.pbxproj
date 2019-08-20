@@ -14,6 +14,10 @@
 		84871F9D230B97110005FBA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84871F9B230B97110005FBA3 /* LaunchScreen.storyboard */; };
 		84871FA8230B97110005FBA3 /* JYCustomSegmentViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871FA7230B97110005FBA3 /* JYCustomSegmentViewTests.swift */; };
 		84871FB3230B97110005FBA3 /* JYCustomSegmentViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871FB2230B97110005FBA3 /* JYCustomSegmentViewUITests.swift */; };
+		84871FC6230BE7CB0005FBA3 /* JYSelectItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871FC1230BE7CB0005FBA3 /* JYSelectItemModel.swift */; };
+		84871FC8230BE7CB0005FBA3 /* JYTestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871FC3230BE7CB0005FBA3 /* JYTestVC.swift */; };
+		84871FC9230BE7CB0005FBA3 /* JYCustomSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871FC4230BE7CB0005FBA3 /* JYCustomSegmentView.swift */; };
+		84871FCA230BE7CB0005FBA3 /* JYSegmentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871FC5230BE7CB0005FBA3 /* JYSegmentContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,10 @@
 		84871FAE230B97110005FBA3 /* JYCustomSegmentViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JYCustomSegmentViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84871FB2230B97110005FBA3 /* JYCustomSegmentViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYCustomSegmentViewUITests.swift; sourceTree = "<group>"; };
 		84871FB4230B97110005FBA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84871FC1230BE7CB0005FBA3 /* JYSelectItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JYSelectItemModel.swift; sourceTree = "<group>"; };
+		84871FC3230BE7CB0005FBA3 /* JYTestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JYTestVC.swift; sourceTree = "<group>"; };
+		84871FC4230BE7CB0005FBA3 /* JYCustomSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JYCustomSegmentView.swift; sourceTree = "<group>"; };
+		84871FC5230BE7CB0005FBA3 /* JYSegmentContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JYSegmentContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +105,10 @@
 		84871F91230B97100005FBA3 /* JYCustomSegmentView */ = {
 			isa = PBXGroup;
 			children = (
+				84871FC0230BE7CB0005FBA3 /* CustomSegmentView */,
 				84871F92230B97100005FBA3 /* AppDelegate.swift */,
 				84871F94230B97100005FBA3 /* ViewController.swift */,
+				84871FC3230BE7CB0005FBA3 /* JYTestVC.swift */,
 				84871F96230B97100005FBA3 /* Main.storyboard */,
 				84871F99230B97110005FBA3 /* Assets.xcassets */,
 				84871F9B230B97110005FBA3 /* LaunchScreen.storyboard */,
@@ -123,6 +133,16 @@
 				84871FB4230B97110005FBA3 /* Info.plist */,
 			);
 			path = JYCustomSegmentViewUITests;
+			sourceTree = "<group>";
+		};
+		84871FC0230BE7CB0005FBA3 /* CustomSegmentView */ = {
+			isa = PBXGroup;
+			children = (
+				84871FC1230BE7CB0005FBA3 /* JYSelectItemModel.swift */,
+				84871FC4230BE7CB0005FBA3 /* JYCustomSegmentView.swift */,
+				84871FC5230BE7CB0005FBA3 /* JYSegmentContentView.swift */,
+			);
+			path = CustomSegmentView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,8 +276,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84871FCA230BE7CB0005FBA3 /* JYSegmentContentView.swift in Sources */,
 				84871F95230B97100005FBA3 /* ViewController.swift in Sources */,
 				84871F93230B97100005FBA3 /* AppDelegate.swift in Sources */,
+				84871FC6230BE7CB0005FBA3 /* JYSelectItemModel.swift in Sources */,
+				84871FC8230BE7CB0005FBA3 /* JYTestVC.swift in Sources */,
+				84871FC9230BE7CB0005FBA3 /* JYCustomSegmentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
