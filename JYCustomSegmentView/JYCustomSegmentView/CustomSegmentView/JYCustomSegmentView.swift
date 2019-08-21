@@ -35,9 +35,6 @@ class JYCustomSegmentView: UIScrollView {
         line.backgroundColor = self.itemStyle.lineViewColor
 //        line.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(line)
-//        if let caLayer = self.itemStyle.lineViewLayer {
-//            line.layer.insertSublayer(caLayer, at: 0)
-//        }
         return line
     }()
     /// 存储item相关属性

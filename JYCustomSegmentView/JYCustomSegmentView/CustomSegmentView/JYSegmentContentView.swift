@@ -34,7 +34,7 @@ extension JYSegmentContentView {
     func addControllersToContentView(superController:UIViewController,controllers:[UIViewController]) {
         let s_width = self.frame.size.width
         let s_height = self.frame.size.height
-        debugPrint(self.frame)
+        debugPrint("content --- \(self.frame)")
         for i in 0...controllers.count-1 {
             let vc = controllers[i]
             superController.addChild(vc)
