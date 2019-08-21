@@ -34,8 +34,7 @@ extension JYSegmentContentView {
     func addControllersToContentView(superController:UIViewController,controllers:[UIViewController]) {
         let s_width = self.frame.size.width
         let s_height = self.frame.size.height
-        
-        debugPrint(s_width)
+        debugPrint(self.frame)
         for i in 0...controllers.count-1 {
             let vc = controllers[i]
             superController.addChild(vc)
@@ -56,7 +55,7 @@ extension JYSegmentContentView {
         }
         self.contentSize = CGSize(width: s_width * CGFloat(subViews.count), height: s_height)
     }
-    ///
+    /// 重新设置contentOffSet
     func resetScrollerViewContentOffSet(selectIndex:Int) {
         let s_width = self.frame.size.width
         self.setContentOffset(CGPoint(x: s_width * CGFloat(selectIndex), y: 0), animated: true)
@@ -69,13 +68,5 @@ extension JYSegmentContentView : UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentIndex = self.contentOffset.x/self.frame.size.width
         self.pageViewDelegate?.scrollViewDeceleratingAction(currentIndex: Int(currentIndex))
-    }
-}
-
-extension JYSegmentContentView {
-    
-    private func configerUI() {
-        
-        
     }
 }

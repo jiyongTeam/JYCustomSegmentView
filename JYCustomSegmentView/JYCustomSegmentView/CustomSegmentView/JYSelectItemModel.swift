@@ -9,14 +9,12 @@
 import UIKit
 /// 自定义SegmentView的选中事件代理
 protocol JYCustomizeSegmentDelegate : class {
-//    /// 获取有多少个item
-//    func numberOfSegmentView(in segmentView:JYCustomSegmentView) -> Int
-//    /// 设置数据源
-//    func dataSourceOfSegmentView(in segmentView:JYCustomSegmentView) -> [String]
+    /// 设置共有多少个item
+    func numberOfSegmentView(in segmentView:JYCustomSegmentView) -> Int
+    /// 设置数据源
+    func dataSourceOfSegmentView(in segmentView:JYCustomSegmentView) -> [String]
     /// item点击事件
     func didSelectSegmentItem(in segmentView:JYCustomSegmentView,selectIndex:Int)
-    ///
-    
 }
 /// SegmentContentView可滑动事件
 protocol JYSegmentContentViewDelegate : class {
@@ -44,8 +42,8 @@ enum JYSegmentLineViewType {
 
 /// 超出屏幕移动显示类型
 ///
-/// - centerType: 每一次移动到屏幕中心
-/// - fixedSpaceType: 每一次移动固定距离
+/// - centerType: 控件移动到屏幕中心
+/// - fixedSpaceType: 下一个控件的中心靠右边距
 enum JYScrollAnmationType {
     case centerType
     case fixedSpaceType
