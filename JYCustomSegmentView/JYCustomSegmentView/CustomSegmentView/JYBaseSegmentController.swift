@@ -79,7 +79,7 @@ extension JYBaseSegmentController {
         self.view.addSubview(contentView)
         let vd:[String:UIView] = ["topView":topView,"contentView":contentView]
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[topView]|", options: [], metrics: nil, views: vd))
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[topView(\(topView.itemStyle.barHeight))]-10-[contentView]", options: [.alignAllLeading,.alignAllTrailing], metrics: nil, views: vd))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[topView(\(topView.itemStyle.barHeight))][contentView]", options: [.alignAllLeading,.alignAllTrailing], metrics: nil, views: vd))
         if #available(iOS 11.0, *) {
             topView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
             contentView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true

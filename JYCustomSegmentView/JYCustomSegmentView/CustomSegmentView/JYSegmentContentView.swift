@@ -4,12 +4,12 @@
 //  rts
 //
 //  Created by admin on 2019/8/15.
-//  Copyright © 2019 张冬. All rights reserved.
+//  Copyright © 2019 Phz. All rights reserved.
 //
 
 import UIKit
 /**
- * 
+ *  segment pageView
  **/
 open class JYSegmentContentView: UIScrollView {
     

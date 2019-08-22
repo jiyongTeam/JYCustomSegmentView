@@ -3,11 +3,13 @@
 //  rts
 //
 //  Created by admin on 2019/8/15.
-//  Copyright © 2019 张冬. All rights reserved.
+//  Copyright © 2019 Phz. All rights reserved.
 //
 
 import UIKit
-
+/*
+ * 自定义segment
+ */
 open class JYCustomSegmentView: UIScrollView {
     /// 当前选中的index 默认第一个
     open var selectIndex:Int = 0 {
@@ -105,7 +107,7 @@ extension JYCustomSegmentView {
             lineWidth = model.itemWidth
         }
         anmationLineView.bounds = CGRect(x: 0, y: 0, width: lineWidth, height: itemStyle.lineViewHeight)
-        anmationLineView.center.y = itemStyle.barHeight - itemStyle.lineViewHeight
+        anmationLineView.center.y = itemStyle.barHeight - itemStyle.lineViewHeight/2
         UIView.animate(withDuration: 0.25) {
             self.anmationLineView.center.x = model.itemCenter.x
         }
@@ -140,8 +142,8 @@ extension JYCustomSegmentView {
                     return
                 }
                 if itemModelArr[lastIndex].itemCenter.x - contentOffset.x < s_width {
-                    if contentOffset.x > 0 {
-                        let offSet = itemModelArr[lastIndex].itemCenter.x - itemModelArr[currentIndex].itemCenter.x + contentOffset.x
+                    let offSet = itemModelArr[lastIndex].itemCenter.x - itemModelArr[currentIndex].itemCenter.x + contentOffset.x
+                    if contentOffset.x > 0, offSet > 0 {
                         self.setContentOffset(CGPoint(x: offSet, y: 0), animated: true)
                     }else{
                         self.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
@@ -257,7 +259,7 @@ extension JYCustomSegmentView {
         /// 设置scrollView的ContentSize
         if itemStyle.itemViewType == .defaultType {
             self.contentSize = CGSize(width: self.getArraySum() + (space * CGFloat(dataCount - 1)), height: itemStyle.barHeight)
-            contentView.frame = CGRect(x: 0, y: 0, width: self.contentSize.width, height: self.contentSize.height)
+            contentView.frame = CGRect(x: 0, y: 0, width: self.contentSize.width, height: itemStyle.barHeight)
         }else if itemStyle.itemViewType == .fixedWidthType {
             self.contentSize = CGSize(width: itemStyle.itemWidth * CGFloat(dataCount) + (space * CGFloat(dataCount - 1)), height: itemStyle.barHeight)
             contentView.frame = CGRect(x: 0, y: 0, width: self.contentSize.width, height: itemStyle.barHeight)
