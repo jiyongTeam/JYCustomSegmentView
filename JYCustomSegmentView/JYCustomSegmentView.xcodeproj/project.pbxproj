@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		847748A7230E28E400CE871A /* JYTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847748A6230E28E400CE871A /* JYTestView.swift */; };
+		847748AB230E347100CE871A /* JYBaseSegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847748AA230E347100CE871A /* JYBaseSegmentController.swift */; };
 		84871F93230B97100005FBA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871F92230B97100005FBA3 /* AppDelegate.swift */; };
 		84871F95230B97100005FBA3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871F94230B97100005FBA3 /* ViewController.swift */; };
 		84871F98230B97100005FBA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84871F96230B97100005FBA3 /* Main.storyboard */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		847748A6230E28E400CE871A /* JYTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYTestView.swift; sourceTree = "<group>"; };
+		847748AA230E347100CE871A /* JYBaseSegmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYBaseSegmentController.swift; sourceTree = "<group>"; };
 		84871F8F230B97100005FBA3 /* JYCustomSegmentView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JYCustomSegmentView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84871F92230B97100005FBA3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84871F94230B97100005FBA3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +113,7 @@
 				84871F92230B97100005FBA3 /* AppDelegate.swift */,
 				84871F94230B97100005FBA3 /* ViewController.swift */,
 				84871FC3230BE7CB0005FBA3 /* JYTestVC.swift */,
+				847748A6230E28E400CE871A /* JYTestView.swift */,
 				84871F96230B97100005FBA3 /* Main.storyboard */,
 				84871F99230B97110005FBA3 /* Assets.xcassets */,
 				84871F9B230B97110005FBA3 /* LaunchScreen.storyboard */,
@@ -141,6 +146,7 @@
 				84871FC1230BE7CB0005FBA3 /* JYSelectItemModel.swift */,
 				84871FC4230BE7CB0005FBA3 /* JYCustomSegmentView.swift */,
 				84871FC5230BE7CB0005FBA3 /* JYSegmentContentView.swift */,
+				847748AA230E347100CE871A /* JYBaseSegmentController.swift */,
 			);
 			path = CustomSegmentView;
 			sourceTree = "<group>";
@@ -279,9 +285,11 @@
 				84871FCA230BE7CB0005FBA3 /* JYSegmentContentView.swift in Sources */,
 				84871F95230B97100005FBA3 /* ViewController.swift in Sources */,
 				84871F93230B97100005FBA3 /* AppDelegate.swift in Sources */,
+				847748AB230E347100CE871A /* JYBaseSegmentController.swift in Sources */,
 				84871FC6230BE7CB0005FBA3 /* JYSelectItemModel.swift in Sources */,
 				84871FC8230BE7CB0005FBA3 /* JYTestVC.swift in Sources */,
 				84871FC9230BE7CB0005FBA3 /* JYCustomSegmentView.swift in Sources */,
+				847748A7230E28E400CE871A /* JYTestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

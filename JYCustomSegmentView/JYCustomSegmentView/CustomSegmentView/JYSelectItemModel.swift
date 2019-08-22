@@ -8,7 +8,7 @@
 
 import UIKit
 /// 自定义SegmentView的选中事件代理
-protocol JYCustomizeSegmentDelegate : class {
+public protocol JYCustomizeSegmentDelegate : class {
     /// 设置共有多少个item
     func numberOfSegmentView(in segmentView:JYCustomSegmentView) -> Int
     /// 设置数据源
@@ -16,8 +16,9 @@ protocol JYCustomizeSegmentDelegate : class {
     /// item点击事件
     func didSelectSegmentItem(in segmentView:JYCustomSegmentView,selectIndex:Int)
 }
+
 /// SegmentContentView可滑动事件
-protocol JYSegmentContentViewDelegate : class {
+public protocol JYSegmentContentViewDelegate : class {
     func scrollViewDeceleratingAction(currentIndex:Int)
 }
 /// 选项卡类型
@@ -25,7 +26,7 @@ protocol JYSegmentContentViewDelegate : class {
 /// - defaultType: 默认类型：控件宽度随文字宽度变化，控件间距相等
 /// - equalScreenType: 均分屏幕宽度：不可滑动，控件均分屏幕宽度
 /// - fixedWiethType: 固定宽度：控件宽度外部确定
-enum JYSegmentViewType {
+public enum JYSegmentViewType {
     case defaultType
     case equalScreenType
     case fixedWidthType
@@ -35,7 +36,7 @@ enum JYSegmentViewType {
 ///
 /// - defaultLineType: 默认类型：宽度与控件宽度一致
 /// - autoWidthLineType: 宽度与控件文字宽度保持一致
-enum JYSegmentLineViewType {
+public enum JYSegmentLineViewType {
     case defaultLineType
     case autoWidthLineType
 }
@@ -44,22 +45,28 @@ enum JYSegmentLineViewType {
 ///
 /// - centerType: 控件移动到屏幕中心
 /// - fixedSpaceType: 下一个控件的中心靠右边距
-enum JYScrollAnmationType {
+public enum JYScrollAnmationType {
     case centerType
     case fixedSpaceType
 }
 /// 选项卡样式协议
-struct JYSegmentItemStyle {
+public struct JYSegmentItemStyle {
+    /// item布局样式
+    var itemViewType:JYSegmentViewType = .defaultType
+    /// 选中线条样式
+    var anmationViewType:JYSegmentLineViewType = .defaultLineType
+    /// scrollview移动样式
+    var scrollType:JYScrollAnmationType = .fixedSpaceType
     /// 整个控件的高度
     var barHeight:CGFloat = 60
     /// 文本默认颜色
-    var textNormalColor: UIColor
+    var textNormalColor: UIColor = UIColor.red
     /// 文本默认字体
-    var textNormalFont: UIFont
+    var textNormalFont: UIFont = UIFont.systemFont(ofSize: 15)
     /// 文本选中颜色
-    var textSelectColor:UIColor
+    var textSelectColor:UIColor = UIColor.blue
     /// 文本选中字体
-    var textSelectFont: UIFont
+    var textSelectFont: UIFont = UIFont.systemFont(ofSize: 22, weight: .semibold)
     /// 控件宽度
     var itemWidth:CGFloat = 0
     /// 控件左右间隔宽度
@@ -67,10 +74,11 @@ struct JYSegmentItemStyle {
     /// 横线高度
     var lineViewHeight:CGFloat = 0
     /// 横线颜色
-    var lineViewColor:UIColor?
+    var lineViewColor:UIColor = UIColor.orange
     /// 横线渐变色layer
     var lineViewLayer:CAGradientLayer?
 }
+
 ///
 class LineViewSetModel: NSObject {
     /// 文字内容宽度

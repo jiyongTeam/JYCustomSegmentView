@@ -8,9 +8,9 @@
 
 import UIKit
 
-class JYCustomSegmentView: UIScrollView {
+open class JYCustomSegmentView: UIScrollView {
     /// 当前选中的index 默认第一个
-    var selectIndex:Int = 0 {
+    open var selectIndex:Int = 0 {
         willSet {
             resetItemSelectStatus(currentIndex: self.selectIndex, selectStatus: false)
         }
@@ -20,20 +20,13 @@ class JYCustomSegmentView: UIScrollView {
         }
     }
     /// 代理
-    weak var segmentDelegate:JYCustomizeSegmentDelegate?
-    var itemStyle = JYSegmentItemStyle(barHeight: 50, textNormalColor: UIColor.red, textNormalFont: UIFont.systemFont(ofSize: 15),textSelectColor: UIColor.blue,textSelectFont: UIFont.systemFont(ofSize: 22, weight: .semibold), itemWidth: 100, itemSpacing: 20, lineViewHeight: 2, lineViewColor: nil, lineViewLayer: nil)
-    /// item布局样式
-    private var itemViewType:JYSegmentViewType = .defaultType
-    /// 选中线条样式
-    private var anmationViewType:JYSegmentLineViewType = .defaultLineType
-    /// scrollview移动样式
-    private var scrollType:JYScrollAnmationType = .fixedSpaceType
+    open weak var segmentDelegate:JYCustomizeSegmentDelegate?
+    open var itemStyle = JYSegmentItemStyle()
     private let contentView = UIView()
     /// 动画view
     private lazy var anmationLineView : UIView = {
         let line = UIView()
         line.backgroundColor = self.itemStyle.lineViewColor
-//        line.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(line)
         return line
     }()
@@ -48,9 +41,9 @@ class JYCustomSegmentView: UIScrollView {
     
     convenience init(itemType:JYSegmentViewType,lineViewType:JYSegmentLineViewType = .defaultLineType,scrollType:JYScrollAnmationType = .fixedSpaceType) {
         self.init()
-        self.itemViewType = itemType
-        self.anmationViewType = lineViewType
-        self.scrollType = scrollType
+        self.itemStyle.itemViewType = itemType
+        self.itemStyle.anmationViewType = lineViewType
+        self.itemStyle.scrollType = scrollType
     }
 
     override init(frame: CGRect) {
@@ -59,7 +52,7 @@ class JYCustomSegmentView: UIScrollView {
         self.addSubview(contentView)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -107,8 +100,8 @@ extension JYCustomSegmentView {
             return
         }
         let model = itemModelArr[currentIndex]
-        var lineWidth = self.anmationViewType == .autoWidthLineType ? model.contentWidth : model.itemWidth
-        if self.anmationViewType == .autoWidthLineType , model.contentWidth > model.itemWidth {
+        var lineWidth = itemStyle.anmationViewType == .autoWidthLineType ? model.contentWidth : model.itemWidth
+        if itemStyle.anmationViewType == .autoWidthLineType , model.contentWidth > model.itemWidth {
             lineWidth = model.itemWidth
         }
         anmationLineView.bounds = CGRect(x: 0, y: 0, width: lineWidth, height: itemStyle.lineViewHeight)
@@ -120,20 +113,20 @@ extension JYCustomSegmentView {
     }
     /// 设置更新scrollView的滑动位置
     private func scrollerToVisible(currentIndex:Int) {
-        guard itemViewType != .equalScreenType else {
+        guard itemStyle.itemViewType != .equalScreenType else {
             return
         }
         let model = itemModelArr[currentIndex]
         let s_width = self.frame.size.width
-        if scrollType == .centerType {
+        if itemStyle.scrollType == .centerType {
             if model.itemCenter.x < s_width/2 {
-                // 移到最左边
+                /// 移到最左边
                 self.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             }else if model.itemCenter.x > self.contentSize.width - s_width/2 {
-                // 移到最右边
+                /// 移到最右边
                 self.setContentOffset(CGPoint(x: self.contentSize.width - s_width, y: 0), animated: true)
             }else {
-                // 计算偏移距离
+                /// 计算偏移距离
                 let offSetX = model.itemCenter.x - s_width/2
                 self.setContentOffset(CGPoint(x: offSetX , y: 0), animated: true)
             }
@@ -241,7 +234,7 @@ extension JYCustomSegmentView {
             let itemRect:CGRect = self.getTextRectSize(text: dataArr[i], font: itemStyle.textSelectFont, size: CGSize(width: 1000, height: 1000))
             debugPrint(itemRect)
             model.contentWidth = itemRect.size.width
-            switch itemViewType {
+            switch itemStyle.itemViewType {
             case .defaultType:
                 model.itemWidth = itemRect.size.width
                 if i == 0 {
@@ -262,10 +255,10 @@ extension JYCustomSegmentView {
             itemModelArr.append(model)
         }
         /// 设置scrollView的ContentSize
-        if itemViewType == .defaultType {
+        if itemStyle.itemViewType == .defaultType {
             self.contentSize = CGSize(width: self.getArraySum() + (space * CGFloat(dataCount - 1)), height: itemStyle.barHeight)
             contentView.frame = CGRect(x: 0, y: 0, width: self.contentSize.width, height: self.contentSize.height)
-        }else if itemViewType == .fixedWidthType {
+        }else if itemStyle.itemViewType == .fixedWidthType {
             self.contentSize = CGSize(width: itemStyle.itemWidth * CGFloat(dataCount) + (space * CGFloat(dataCount - 1)), height: itemStyle.barHeight)
             contentView.frame = CGRect(x: 0, y: 0, width: self.contentSize.width, height: itemStyle.barHeight)
         }else {

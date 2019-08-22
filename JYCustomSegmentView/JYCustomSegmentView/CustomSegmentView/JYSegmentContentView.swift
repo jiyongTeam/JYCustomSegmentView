@@ -11,9 +11,9 @@ import UIKit
 /**
  * 
  **/
-class JYSegmentContentView: UIScrollView {
+open class JYSegmentContentView: UIScrollView {
     
-    weak var pageViewDelegate:JYSegmentContentViewDelegate?
+    open weak var pageViewDelegate:JYSegmentContentViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,7 +22,7 @@ class JYSegmentContentView: UIScrollView {
         self.delegate = self
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -31,7 +31,10 @@ class JYSegmentContentView: UIScrollView {
 extension JYSegmentContentView {
     
     /// 添加controller
-    func addControllersToContentView(superController:UIViewController,controllers:[UIViewController]) {
+    open func addControllersToContentView(superController:UIViewController,controllers:[UIViewController]) {
+        guard controllers.isEmpty == false else {
+            return
+        }
         let s_width = self.frame.size.width
         let s_height = self.frame.size.height
         debugPrint("content --- \(self.frame)")
@@ -44,7 +47,10 @@ extension JYSegmentContentView {
         self.contentSize = CGSize(width: s_width * CGFloat(controllers.count), height: s_height)
     }
     /// 添加view
-    func addViewsToContentView(subViews:[UIView]) {
+    open func addViewsToContentView(subViews:[UIView]) {
+        guard subViews.isEmpty == false else {
+            return
+        }
         let s_width = self.frame.size.width
         let s_height = self.frame.size.height
         debugPrint(s_width)
@@ -56,7 +62,7 @@ extension JYSegmentContentView {
         self.contentSize = CGSize(width: s_width * CGFloat(subViews.count), height: s_height)
     }
     /// 重新设置contentOffSet
-    func resetScrollerViewContentOffSet(selectIndex:Int) {
+    open func resetScrollerViewContentOffSet(selectIndex:Int) {
         let s_width = self.frame.size.width
         self.setContentOffset(CGPoint(x: s_width * CGFloat(selectIndex), y: 0), animated: true)
     }
@@ -65,7 +71,7 @@ extension JYSegmentContentView {
 // MARK: - UIScrollViewDelegate
 extension JYSegmentContentView : UIScrollViewDelegate {
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentIndex = self.contentOffset.x/self.frame.size.width
         self.pageViewDelegate?.scrollViewDeceleratingAction(currentIndex: Int(currentIndex))
     }
