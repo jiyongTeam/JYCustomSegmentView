@@ -10,6 +10,8 @@ import UIKit
 
 /// 数据协议
 public protocol JYBaseSegmentProtocol {
+    /// 显示样式刷新
+    var reloadStyle:JYSegmentItemStyle? {set get}
     /// 标题
     var titles:[String] {set get}
     /// 添加subViews
@@ -23,12 +25,19 @@ public protocol JYBaseSegmentProtocol {
 open class JYBaseSegmentController: UIViewController {
     
     open lazy var topView = JYCustomSegmentView()
-    open var datas:JYBaseSegmentProtocol?
+    open var datas:JYBaseSegmentProtocol? {
+        didSet {
+            if let style = self.datas?.reloadStyle {
+                topView.itemStyle = style
+            }
+            topView.reloadSegmentDatas()
+        }
+    }
     private var contentView = JYSegmentContentView()
 
     override open func viewDidLoad() {
         super.viewDidLoad()
-        configerUI()
+        setupSegmentViewUI()
     }
 }
 
@@ -51,9 +60,7 @@ extension JYBaseSegmentController:JYSegmentContentViewDelegate,JYCustomizeSegmen
     }
     
     @objc open func numberOfSegmentView(in segmentView: JYCustomSegmentView) -> Int {
-        if let arr = datas?.childControllers {
-            return arr.count
-        }else if let arr = datas?.childViews {
+        if let arr = datas?.titles {
             return arr.count
         }
         return 0
@@ -72,7 +79,7 @@ extension JYBaseSegmentController:JYSegmentContentViewDelegate,JYCustomizeSegmen
 
 extension JYBaseSegmentController {
     
-    private func configerUI() {
+    private func setupSegmentViewUI() {
         topView.segmentDelegate = self
         contentView.pageViewDelegate = self
         self.view.addSubview(topView)

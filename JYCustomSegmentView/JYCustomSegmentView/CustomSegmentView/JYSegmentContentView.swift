@@ -19,6 +19,8 @@ open class JYSegmentContentView: UIScrollView {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.isPagingEnabled = true
+        self.showsVerticalScrollIndicator = false
+        self.showsHorizontalScrollIndicator = false
         self.delegate = self
     }
     
@@ -53,7 +55,7 @@ extension JYSegmentContentView {
         }
         let s_width = self.frame.size.width
         let s_height = self.frame.size.height
-        debugPrint(s_width)
+        debugPrint("content --- \(self.frame)")
         for i in 0...subViews.count-1 {
             let v = subViews[i]
             v.frame = CGRect(x: s_width * CGFloat(i), y: 0, width: s_width, height: s_height)

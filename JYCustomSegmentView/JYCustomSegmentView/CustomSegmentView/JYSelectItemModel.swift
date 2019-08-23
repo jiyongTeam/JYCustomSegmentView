@@ -52,31 +52,39 @@ public enum JYScrollAnmationType {
 /// 选项卡样式协议
 public struct JYSegmentItemStyle {
     /// item布局样式
-    var itemViewType:JYSegmentViewType = .defaultType
+    public var itemViewType:JYSegmentViewType = .equalScreenType
     /// 选中线条样式
-    var anmationViewType:JYSegmentLineViewType = .defaultLineType
+    public var anmationViewType:JYSegmentLineViewType = .autoWidthLineType
     /// scrollview移动样式
-    var scrollType:JYScrollAnmationType = .fixedSpaceType
+    public var scrollType:JYScrollAnmationType = .fixedSpaceType
     /// 整个控件的高度
-    var barHeight:CGFloat = 60
+    public var barHeight:CGFloat = 60
+    /// 整个控件的背景色
+    public var barBackGroundColor: UIColor = UIColor.clear
     /// 文本默认颜色
-    var textNormalColor: UIColor = UIColor.red
+    public var textNormalColor: UIColor = UIColor(red: 0.26, green: 0.26, blue: 0.26, alpha: 1)
     /// 文本默认字体
-    var textNormalFont: UIFont = UIFont.systemFont(ofSize: 15)
+    public var textNormalFont: UIFont = UIFont.systemFont(ofSize: 16)
     /// 文本选中颜色
-    var textSelectColor:UIColor = UIColor.blue
+    public var textSelectColor:UIColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
     /// 文本选中字体
-    var textSelectFont: UIFont = UIFont.systemFont(ofSize: 22, weight: .semibold)
-    /// 控件宽度
-    var itemWidth:CGFloat = 0
-    /// 控件左右间隔宽度
-    var itemSpacing:CGFloat = 0
+    public var textSelectFont: UIFont = UIFont.systemFont(ofSize: 16, weight: .medium)
+    /// 按钮背景色
+    public var itemBackGroundColor: UIColor = UIColor.clear
+    /// 按钮宽度
+    public var itemWidth:CGFloat = 100
+    /// 按钮左右间隔宽度
+    public var itemSpacing:CGFloat = 0
     /// 横线高度
-    var lineViewHeight:CGFloat = 0
+    public var lineViewHeight:CGFloat = 6
     /// 横线颜色
-    var lineViewColor:UIColor = UIColor.orange
+    public var lineViewColor:UIColor =  UIColor(red: 1, green: 0.52, blue: 0.22, alpha: 1)
+    /// 横线圆角
+    public var lineCornerRadius: CGFloat?
     /// 横线渐变色layer
-    var lineViewLayer:CAGradientLayer?
+    public var lineViewLayer:CAGradientLayer?
+    
+    public init() {}
 }
 
 ///

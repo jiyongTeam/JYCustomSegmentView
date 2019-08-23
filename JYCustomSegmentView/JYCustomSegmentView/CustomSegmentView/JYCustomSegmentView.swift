@@ -41,7 +41,7 @@ open class JYCustomSegmentView: UIScrollView {
 
 
     
-    convenience init(itemType:JYSegmentViewType,lineViewType:JYSegmentLineViewType = .defaultLineType,scrollType:JYScrollAnmationType = .fixedSpaceType) {
+    public convenience init(itemType:JYSegmentViewType,lineViewType:JYSegmentLineViewType = .defaultLineType,scrollType:JYScrollAnmationType = .fixedSpaceType) {
         self.init()
         self.itemStyle.itemViewType = itemType
         self.itemStyle.anmationViewType = lineViewType
@@ -51,7 +51,6 @@ open class JYCustomSegmentView: UIScrollView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setScrollView()
-        self.addSubview(contentView)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -63,11 +62,11 @@ open class JYCustomSegmentView: UIScrollView {
 // MARK: - pubilc api
 extension JYCustomSegmentView {
     /// 更新当前选中的item
-    func updateSelectIndex(currentIndex:Int) {
+    open func updateSelectIndex(currentIndex:Int) {
         selectIndex = currentIndex
     }
     /// 刷新数据
-    func reloadSegmentDatas() {
+    open func reloadSegmentDatas() {
         resetData()
     }
 }
@@ -93,8 +92,8 @@ extension JYCustomSegmentView {
         let index = tap.tag - 100
         if index != selectIndex {
             selectIndex = index
+            self.segmentDelegate?.didSelectSegmentItem(in: self, selectIndex: index)
         }
-        self.segmentDelegate?.didSelectSegmentItem(in: self, selectIndex: index)
     }
     /// 设置更新动画线条的位置
     private func resetAnmationLineViewFrame(currentIndex:Int) {
@@ -111,11 +110,15 @@ extension JYCustomSegmentView {
         UIView.animate(withDuration: 0.25) {
             self.anmationLineView.center.x = model.itemCenter.x
         }
+        self.itemStyle.lineViewLayer?.frame = anmationLineView.bounds
         scrollerToVisible(currentIndex: currentIndex)
     }
     /// 设置更新scrollView的滑动位置
     private func scrollerToVisible(currentIndex:Int) {
         guard itemStyle.itemViewType != .equalScreenType else {
+            return
+        }
+        guard self.contentSize.width > self.frame.size.width else {
             return
         }
         let model = itemModelArr[currentIndex]
@@ -197,20 +200,29 @@ extension JYCustomSegmentView {
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
         self.bounces = false
+        self.addSubview(contentView)
     }
     /// 布局contentView
     private func configerContentView() {
-        
+        contentView.backgroundColor = itemStyle.barBackGroundColor
         contentView.subviews.forEach({$0.removeFromSuperview()
         })
         if let itemCount = self.segmentDelegate?.numberOfSegmentView(in: self) {
             configerContentViewUI(dataCount: itemCount)
         }
         /// 设置动画线条的初始位置
-        resetAnmationLineViewFrame(currentIndex: 0)
+        resetAnmationLineViewFrame(currentIndex: self.selectIndex)
+        if let caLayer = self.itemStyle.lineViewLayer {
+            anmationLineView.layer.insertSublayer(caLayer, at: 0)
+        }
+        if let radius = self.itemStyle.lineCornerRadius {
+            anmationLineView.layer.cornerRadius = radius
+            anmationLineView.layer.masksToBounds = true
+        }
     }
     /// 布局items
     private func configerContentViewUI(dataCount:Int) {
+        print(self.itemStyle)
         guard let dataArr = self.segmentDelegate?.dataSourceOfSegmentView(in: self),dataArr.isEmpty == false else {
             return
         }
@@ -218,7 +230,7 @@ extension JYCustomSegmentView {
         let s_width = self.frame.size.width
         for i in 0...(dataCount - 1) {
             let btn = UIButton(type: .custom)
-            btn.backgroundColor = UIColor.yellow
+            btn.backgroundColor = itemStyle.itemBackGroundColor
             btn.setTitle(dataArr[i], for: .normal)
             btn.setTitleColor(itemStyle.textNormalColor, for: .normal)
             btn.setTitleColor(itemStyle.textSelectColor, for: .selected)
@@ -227,6 +239,7 @@ extension JYCustomSegmentView {
                 btn.isSelected = true
             }else{
                 btn.titleLabel?.font = itemStyle.textNormalFont
+                btn.isSelected = false
             }
             btn.tag = i + 100
             btn.addTarget(self, action: #selector(self.tapAction(tap:)), for: .touchUpInside)
