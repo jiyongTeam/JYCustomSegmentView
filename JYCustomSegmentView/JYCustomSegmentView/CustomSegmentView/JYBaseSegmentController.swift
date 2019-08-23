@@ -30,7 +30,6 @@ open class JYBaseSegmentController: UIViewController {
             if let style = self.datas?.reloadStyle {
                 topView.itemStyle = style
             }
-            topView.reloadSegmentDatas()
         }
     }
     private var contentView = JYSegmentContentView()
@@ -38,6 +37,10 @@ open class JYBaseSegmentController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         setupSegmentViewUI()
+    }
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        topView.reloadSegmentDatas()
     }
 }
 

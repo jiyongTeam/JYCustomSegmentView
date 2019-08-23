@@ -42,7 +42,7 @@ final class ViewController: JYBaseSegmentController {
         layer.endPoint = CGPoint(x: 0, y: 1)
         var option = JYSegmentItemStyle()
         option.lineViewHeight = 5
-        option.itemViewType = .fixedWidthType
+        option.itemViewType = .equalScreenType
         option.anmationViewType = .autoWidthLineType
         option.scrollType = .fixedSpaceType
         option.itemSpacing = 20
