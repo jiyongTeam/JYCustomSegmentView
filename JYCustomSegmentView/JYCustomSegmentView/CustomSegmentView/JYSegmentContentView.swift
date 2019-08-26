@@ -58,6 +58,7 @@ extension JYSegmentContentView {
         debugPrint("content --- \(self.frame)")
         for i in 0...subViews.count-1 {
             let v = subViews[i]
+            v.translatesAutoresizingMaskIntoConstraints = true
             v.frame = CGRect(x: s_width * CGFloat(i), y: 0, width: s_width, height: s_height)
             self.addSubview(v)
         }
