@@ -7,14 +7,17 @@
 //
 
 import UIKit
-/// 自定义SegmentView的选中事件代理
+/// 自定义SegmentView的事件功能代理
 public protocol JYCustomizeSegmentDelegate : class {
+    /// item点击事件
+    func didSelectSegmentItem(in segmentView:JYCustomSegmentView,selectIndex:Int)
+}
+/// 自定义SegmentView的数据源代理
+public protocol JYCustomizeSegmentDataSource : class {
     /// 设置共有多少个item
     func numberOfSegmentView(in segmentView:JYCustomSegmentView) -> Int
     /// 设置数据源
     func dataSourceOfSegmentView(in segmentView:JYCustomSegmentView) -> [String]
-    /// item点击事件
-    func didSelectSegmentItem(in segmentView:JYCustomSegmentView,selectIndex:Int)
 }
 
 /// SegmentContentView可滑动事件

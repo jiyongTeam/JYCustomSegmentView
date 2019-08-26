@@ -21,8 +21,14 @@ open class JYCustomSegmentView: UIScrollView {
             resetItemSelectStatus(currentIndex: self.selectIndex, selectStatus: true )
         }
     }
-    /// 代理
+    /// 事件功能代理
     open weak var segmentDelegate:JYCustomizeSegmentDelegate?
+    /// 数据源代理
+    open weak var segmentDataSource:JYCustomizeSegmentDataSource? {
+        didSet {
+            titleArray = self.segmentDataSource?.dataSourceOfSegmentView(in: self)
+        }
+    }
     open var itemStyle = JYSegmentItemStyle()
     private let contentView = UIView()
     /// 动画view
@@ -37,22 +43,31 @@ open class JYCustomSegmentView: UIScrollView {
     /// 存储item
     private lazy var itemSubViews:[UIButton] = []
     private var lastIndexModel:LineViewSetModel?
+    private var titleArray:[String]? {
+        didSet {
+            resetData()
+        }
+    }
 
-
-
-    
-    public convenience init(itemType:JYSegmentViewType,lineViewType:JYSegmentLineViewType = .defaultLineType,scrollType:JYScrollAnmationType = .fixedSpaceType) {
+    /// 建议创建静态数据的view使用此初始化方法（如需刷新数据，使用代理设置数据源）
+    public convenience init(dataArray:[String]?,option:JYSegmentItemStyle) {
         self.init()
-        self.itemStyle.itemViewType = itemType
-        self.itemStyle.anmationViewType = lineViewType
-        self.itemStyle.scrollType = scrollType
+        self.itemStyle = option
+        if dataArray != nil {
+            titleArray = dataArray
+            configerContentView()
+        }
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setScrollView()
     }
-    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        debugPrint(self.frame)
+        reloadEqualScreenTypeView()
+    }
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -65,17 +80,17 @@ extension JYCustomSegmentView {
     open func updateSelectIndex(currentIndex:Int) {
         selectIndex = currentIndex
     }
-    /// 刷新数据
+    /// 代理刷新数据
     open func reloadSegmentDatas() {
-        resetData()
+        titleArray = self.segmentDataSource?.dataSourceOfSegmentView(in: self)
     }
 }
 
 // MARK: - 事件处理
 extension JYCustomSegmentView {
-    
+    /// 根据数据源刷新UI
     private func resetData() {
-        guard let dataArray = self.segmentDelegate?.dataSourceOfSegmentView(in: self),dataArray.isEmpty == false else {
+        guard let dataArray = titleArray,dataArray.isEmpty == false else {
             return
         }
         if dataArray.count == itemSubViews.count {
@@ -202,12 +217,31 @@ extension JYCustomSegmentView {
         self.bounces = false
         self.addSubview(contentView)
     }
+    /// 刷新等屏布局样式UI
+    private func reloadEqualScreenTypeView() {
+        guard itemStyle.itemViewType == .equalScreenType,let arr = titleArray, arr.isEmpty == false else {
+            return
+        }
+        if arr.count == itemSubViews.count {
+            contentView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: itemStyle.barHeight)
+            for i in 0...itemSubViews.count - 1 {
+                let btn = itemSubViews[i]
+                let model = itemModelArr[i]
+                model.itemWidth = self.frame.width/CGFloat(arr.count)
+                btn.frame = CGRect(x: model.itemWidth * CGFloat(i), y: 0, width: model.itemWidth, height: itemStyle.barHeight - itemStyle.lineViewHeight)
+                model.itemCenter = btn.center
+                model.modelIndex = i
+            }
+            /// 设置动画线条的初始位置
+            resetAnmationLineViewFrame(currentIndex: self.selectIndex)
+        }
+    }
     /// 布局contentView
     private func configerContentView() {
         contentView.backgroundColor = itemStyle.barBackGroundColor
         contentView.subviews.forEach({$0.removeFromSuperview()
         })
-        if let itemCount = self.segmentDelegate?.numberOfSegmentView(in: self) {
+        if let itemCount = titleArray?.count {
             configerContentViewUI(dataCount: itemCount)
         }
         /// 设置动画线条的初始位置
@@ -222,8 +256,7 @@ extension JYCustomSegmentView {
     }
     /// 布局items
     private func configerContentViewUI(dataCount:Int) {
-        print(self.itemStyle)
-        guard let dataArr = self.segmentDelegate?.dataSourceOfSegmentView(in: self),dataArr.isEmpty == false else {
+        guard let dataArr = titleArray,dataArr.isEmpty == false else {
             return
         }
         let space = itemStyle.itemSpacing
