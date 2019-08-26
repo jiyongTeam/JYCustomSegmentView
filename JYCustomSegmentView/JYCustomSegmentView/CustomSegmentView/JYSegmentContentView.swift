@@ -28,6 +28,17 @@ open class JYSegmentContentView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        if self.subviews.isEmpty == false {
+            let s_width = self.frame.size.width
+            let s_height = self.frame.size.height
+            for i in 0...self.subviews.count-1 {
+                let v = self.subviews[i]
+                v.frame = CGRect(x: s_width * CGFloat(i), y: 0, width: s_width, height: s_height)
+            }
+        }
+    }
 }
 
 extension JYSegmentContentView {

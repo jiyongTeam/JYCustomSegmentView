@@ -28,10 +28,10 @@ final class ViewController: JYBaseSegmentController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTopViewOptions()
+        self.configerChildViews()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.configerChildViews()
     }
     
     private func setTopViewOptions() {
