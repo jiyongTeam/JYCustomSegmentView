@@ -24,9 +24,7 @@ public protocol JYBaseSegmentProtocol {
  */
 open class JYBaseSegmentController: UIViewController {
     
-    private var option = JYSegmentItemStyle()
-    open lazy var topView = JYCustomSegmentView(dataArray: ["测试1","测试2","测试3","测4","测试5","测试6","测试7"], option: option )
-//    open lazy var topView = JYCustomSegmentView()
+    open lazy var topView = JYCustomSegmentView()
     open var datas:JYBaseSegmentProtocol? {
         didSet {
             if let style = self.datas?.reloadStyle {
@@ -65,7 +63,6 @@ extension JYBaseSegmentController:JYSegmentContentViewDelegate,JYCustomizeSegmen
     }
     
     @objc open func numberOfSegmentView(in segmentView: JYCustomSegmentView) -> Int {
-        debugPrint(self.datas)
         if let arr = datas?.titles {
             return arr.count
         }
@@ -87,7 +84,7 @@ extension JYBaseSegmentController {
     
     private func setupSegmentViewUI() {
         topView.segmentDelegate = self
-//        topView.segmentDataSource = self
+        topView.segmentDataSource = self
         contentView.pageViewDelegate = self
         self.view.addSubview(topView)
         self.view.addSubview(contentView)
