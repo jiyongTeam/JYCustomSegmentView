@@ -24,6 +24,7 @@ open class JYSegmentContentView: UIScrollView {
         self.isPagingEnabled = true
         self.showsVerticalScrollIndicator = false
         self.showsHorizontalScrollIndicator = false
+        self.bounces = false
         self.delegate = self
     }
     
