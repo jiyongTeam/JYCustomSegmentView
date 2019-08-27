@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "JYCustomSegmentView"
-  spec.version      = "0.1.3"
+  spec.version      = "0.1.4"
   spec.summary      = "JYCustomSegmentView is a lightweight toolView"
 
   # This description is used to generate tags and improve search results.

@@ -8,60 +8,57 @@
 
 import UIKit
 
-struct data:JYBaseSegmentProtocol {
+final class ViewController: UIViewController {
     
-    var reloadStyle:JYSegmentItemStyle?
-    
-    var titles: [String]
-    
-    var childViews: [UIView]?
-    
-    var childControllers: [UIViewController]?
-}
-
-final class ViewController: JYBaseSegmentController {
-    
-    let arrVC:[UIViewController] = [JYTestVC(),JYTestVC(),JYTestVC(),JYTestVC(),JYTestVC(),JYTestVC(),JYTestVC(),JYTestVC()]
-    let arrView:[UIView] = [JYTestView(),JYTestView(),JYTestView(),JYTestView(),JYTestView(),JYTestView(),JYTestView(),JYTestView()]
-
+    private lazy var tableView:UITableView = {
+        let tab = UITableView(frame: .zero, style: .plain)
+        tab.translatesAutoresizingMaskIntoConstraints = false
+        tab.delegate = self
+        tab.dataSource = self
+        tab.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cellID")
+        return tab
+    }()
+    private let dataArray = ["静态数据源示例","动态数据源示例","继承于JYBaseSegmentController示例"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTopViewOptions()
-        self.configerChildViews()
+        configrUI()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+}
+
+extension ViewController : UITableViewDelegate,UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataArray.count
     }
     
-    private func setTopViewOptions() {
-        let layer = CAGradientLayer()
-        layer.colors = [UIColor(red: 1, green: 0.63, blue: 0.25, alpha: 1).cgColor, UIColor(red: 1, green: 0.52, blue: 0.22, alpha: 1).cgColor]
-        layer.locations = [0, 1]
-        layer.startPoint = CGPoint(x: 0, y: 0)
-        layer.endPoint = CGPoint(x: 0, y: 1)
-        var option = JYSegmentItemStyle()
-        option.lineViewHeight = 5
-        option.itemViewType = .equalScreenType
-        option.anmationViewType = .autoWidthLineType
-        option.scrollType = .fixedSpaceType
-        option.itemSpacing = 20
-        option.lineViewLayer = layer
-        option.lineCornerRadius = 1
-//        option.barBackGroundColor = UIColor.magenta
-//        option.itemBackGroundColor = UIColor.brown
-        self.datas = data(reloadStyle: option, titles: ["测试1","测试2","明天天气很晴朗","限速","名义","天气","下雨","晴天霹雳"], childViews: arrView, childControllers: nil)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
+        cell.textLabel?.text = dataArray[indexPath.row]
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            let vc = StaicDataSourceController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 1:
+            let vc = DynamicDataSourceController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        default:
+            let vc = CustomerViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
 extension ViewController {
     
-    override func scrollViewDeceleratingAction(currentIndex: Int) {
-        super.scrollViewDeceleratingAction(currentIndex: currentIndex)
-        debugPrint("scrollViewDecelerating -- \(currentIndex)")
-    }
-    override func didSelectSegmentItem(in segmentView: JYCustomSegmentView, selectIndex: Int) {
-        super.didSelectSegmentItem(in: segmentView, selectIndex: selectIndex)
-        debugPrint(selectIndex)
+    private func configrUI() {
+        self.view.addSubview(tableView)
+        let vd:[String:UIView] = ["tableView":tableView]
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[tableView]|", options: [.alignAllTop,.alignAllBottom], metrics: nil, views: vd))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[tableView]", options: [], metrics: nil, views: vd))
+        tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
     }
 }

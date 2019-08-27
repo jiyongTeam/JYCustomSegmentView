@@ -53,14 +53,21 @@ extension JYSegmentContentView {
     
     /// 添加controller
     open func addControllersToContentView(superController:UIViewController,controllers:[UIViewController]) {
-        guard controllers.isEmpty == false else {
+        guard controllers.isEmpty == false,self.subviews.count != controllers.count else {
             return
+        }
+        if superController.children.isEmpty == false {
+            superController.children.forEach({$0.removeFromParent()})
+        }
+        if self.subviews.isEmpty == false {
+            self.subviews.forEach({$0.removeFromSuperview()})
         }
         let s_width = self.frame.size.width
         let s_height = self.frame.size.height
         debugPrint("content --- \(self.frame)")
         for i in 0...controllers.count-1 {
             let vc = controllers[i]
+            vc.didMove(toParent: superController)
             superController.addChild(vc)
             vc.view.frame = CGRect(x: s_width * CGFloat(i), y: 0, width: s_width, height: s_height)
             self.addSubview(vc.view)
