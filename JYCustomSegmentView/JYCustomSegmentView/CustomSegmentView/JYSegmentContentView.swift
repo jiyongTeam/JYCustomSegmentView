@@ -14,7 +14,10 @@ import UIKit
 open class JYSegmentContentView: UIScrollView {
     
     open weak var pageViewDelegate:JYSegmentContentViewDelegate?
-
+    private var lastIndex:Int?
+    private var currentIndex:Int?
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -27,6 +30,9 @@ open class JYSegmentContentView: UIScrollView {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    deinit {
+        debugPrint("销毁 --- \(self.classForCoder)")
+    }
     
     open override func layoutSubviews() {
         super.layoutSubviews()
@@ -37,6 +43,7 @@ open class JYSegmentContentView: UIScrollView {
                 let v = self.subviews[i]
                 v.frame = CGRect(x: s_width * CGFloat(i), y: 0, width: s_width, height: s_height)
             }
+            self.contentSize = CGSize(width: s_width * CGFloat(self.subviews.count), height: s_height)
         }
     }
 }
@@ -57,7 +64,6 @@ extension JYSegmentContentView {
             vc.view.frame = CGRect(x: s_width * CGFloat(i), y: 0, width: s_width, height: s_height)
             self.addSubview(vc.view)
         }
-        self.contentSize = CGSize(width: s_width * CGFloat(controllers.count), height: s_height)
     }
     /// 添加view
     open func addViewsToContentView(subViews:[UIView]) {
@@ -73,7 +79,6 @@ extension JYSegmentContentView {
             v.frame = CGRect(x: s_width * CGFloat(i), y: 0, width: s_width, height: s_height)
             self.addSubview(v)
         }
-        self.contentSize = CGSize(width: s_width * CGFloat(subViews.count), height: s_height)
     }
     /// 重新设置contentOffSet
     open func resetScrollerViewContentOffSet(selectIndex:Int) {
@@ -86,7 +91,11 @@ extension JYSegmentContentView {
 extension JYSegmentContentView : UIScrollViewDelegate {
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let currentIndex = self.contentOffset.x/self.frame.size.width
-        self.pageViewDelegate?.scrollViewDeceleratingAction(currentIndex: Int(currentIndex))
+        let index = Int(self.contentOffset.x/self.frame.size.width)
+        self.currentIndex = index
+        if lastIndex != currentIndex {
+            self.pageViewDelegate?.scrollViewDeceleratingAction(currentIndex: index)
+        }
+        self.lastIndex = index
     }
 }

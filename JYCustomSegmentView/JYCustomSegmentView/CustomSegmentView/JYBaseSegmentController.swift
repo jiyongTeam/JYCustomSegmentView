@@ -58,7 +58,6 @@ extension JYBaseSegmentController:JYSegmentContentViewDelegate,JYCustomizeSegmen
     }
     
     @objc open func scrollViewDeceleratingAction(currentIndex: Int) {
-        debugPrint(currentIndex)
         topView.updateSelectIndex(currentIndex: currentIndex)
     }
     
@@ -75,7 +74,6 @@ extension JYBaseSegmentController:JYSegmentContentViewDelegate,JYCustomizeSegmen
         return []
     }
     @objc open func didSelectSegmentItem(in segmentView: JYCustomSegmentView, selectIndex: Int) {
-        debugPrint(selectIndex)
         contentView.resetScrollerViewContentOffSet(selectIndex: selectIndex)
     }
 }

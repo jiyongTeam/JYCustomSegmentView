@@ -58,7 +58,7 @@ extension ViewController {
     
     override func scrollViewDeceleratingAction(currentIndex: Int) {
         super.scrollViewDeceleratingAction(currentIndex: currentIndex)
-        debugPrint(currentIndex)
+        debugPrint("scrollViewDecelerating -- \(currentIndex)")
     }
     override func didSelectSegmentItem(in segmentView: JYCustomSegmentView, selectIndex: Int) {
         super.didSelectSegmentItem(in: segmentView, selectIndex: selectIndex)

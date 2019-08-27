@@ -71,7 +71,9 @@ open class JYCustomSegmentView: UIScrollView {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    deinit {
+        debugPrint("销毁 --- \(self.classForCoder)")
+    }
 }
 
 // MARK: - pubilc api
