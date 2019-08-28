@@ -20,7 +20,7 @@ class DynamicDataSourceController: UIViewController {
     }()
     private lazy var headerView = JYCustomSegmentView()
     private lazy var contentView = JYSegmentContentView()
-    private var dataArray:[String] = ["基本数据","基本类型","测试","策士","测试卡","测"]
+    private var dataArray:[String] = []
     
     
     override func viewDidLoad() {
@@ -32,6 +32,7 @@ class DynamicDataSourceController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        dataArray = ["舒适","策士","基本数据","基本类型","测试","策士","测试卡","测"]
         headerView.reloadSegmentDatas()
     }
 }

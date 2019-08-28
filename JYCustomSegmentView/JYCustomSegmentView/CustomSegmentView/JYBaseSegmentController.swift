@@ -30,6 +30,7 @@ open class JYBaseSegmentController: UIViewController {
             if let style = self.datas?.reloadStyle {
                 topView.itemStyle = style
             }
+            self.configerChildViews()
         }
     }
     private var contentView = JYSegmentContentView()
@@ -38,24 +39,10 @@ open class JYBaseSegmentController: UIViewController {
         super.viewDidLoad()
         setupSegmentViewUI()
     }
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        topView.reloadSegmentDatas()
-    }
 }
 
 // MARK: pubilc API 
 extension JYBaseSegmentController:JYSegmentContentViewDelegate,JYCustomizeSegmentDelegate,JYCustomizeSegmentDataSource {
-    
-    open func configerChildViews() {
-        if let childControllers = self.datas?.childControllers {
-            contentView.addControllersToContentView(superController: self, controllers: childControllers)
-        }else if let childViews = self.datas?.childViews {
-            contentView.addViewsToContentView(subViews: childViews)
-        }else{
-            debugPrint("没有设置contentView")
-        }
-    }
     
     @objc open func scrollViewDeceleratingAction(currentIndex: Int) {
         topView.updateSelectIndex(currentIndex: currentIndex)
@@ -79,6 +66,16 @@ extension JYBaseSegmentController:JYSegmentContentViewDelegate,JYCustomizeSegmen
 }
 
 extension JYBaseSegmentController {
+    
+    private func configerChildViews() {
+        if let childControllers = self.datas?.childControllers {
+            contentView.addControllersToContentView(superController: self, controllers: childControllers)
+        }else if let childViews = self.datas?.childViews {
+            contentView.addViewsToContentView(subViews: childViews)
+        }else{
+            debugPrint("没有设置contentView")
+        }
+    }
     
     private func setupSegmentViewUI() {
         topView.segmentDelegate = self

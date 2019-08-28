@@ -65,7 +65,6 @@ open class JYCustomSegmentView: UIScrollView {
     }
     open override func layoutSubviews() {
         super.layoutSubviews()
-        debugPrint(self.frame)
         reloadEqualScreenTypeView()
     }
     required public init?(coder aDecoder: NSCoder) {
@@ -199,7 +198,6 @@ extension JYCustomSegmentView {
     }
     /// 更新选择项的选中状态
     private func resetItemSelectStatus(currentIndex:Int,selectStatus:Bool) {
-        debugPrint(currentIndex)
         guard currentIndex < itemSubViews.count else {
             return
         }
@@ -241,8 +239,7 @@ extension JYCustomSegmentView {
     /// 布局contentView
     private func configerContentView() {
         contentView.backgroundColor = itemStyle.barBackGroundColor
-        contentView.subviews.forEach({$0.removeFromSuperview()
-        })
+        clearContentViewActionItems()
         if let itemCount = titleArray?.count {
             configerContentViewUI(dataCount: itemCount)
         }
@@ -255,6 +252,16 @@ extension JYCustomSegmentView {
             anmationLineView.layer.cornerRadius = radius
             anmationLineView.layer.masksToBounds = true
         }
+    }
+    /// 清空contentView的item
+    private func clearContentViewActionItems() {
+        contentView.subviews.forEach { (item) in
+            if let btn =  item as? UIButton {
+                btn.removeFromSuperview()
+            }
+        }
+        itemSubViews.removeAll()
+        itemModelArr.removeAll()
     }
     /// 布局items
     private func configerContentViewUI(dataCount:Int) {
@@ -282,7 +289,6 @@ extension JYCustomSegmentView {
             itemSubViews.append(btn)
             let model = LineViewSetModel()
             let itemRect:CGRect = self.getTextRectSize(text: dataArr[i], font: itemStyle.textSelectFont, size: CGSize(width: 1000, height: 1000))
-            debugPrint(itemRect)
             model.contentWidth = itemRect.size.width
             switch itemStyle.itemViewType {
             case .defaultType:

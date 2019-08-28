@@ -33,7 +33,7 @@ class CustomerViewController: JYBaseSegmentController {
         layer.endPoint = CGPoint(x: 0, y: 1)
         var option = JYSegmentItemStyle()
         option.lineViewHeight = 5
-        option.itemViewType = .defaultType
+//        option.itemViewType = .fixedWidthType
         option.anmationViewType = .autoWidthLineType
         option.scrollType = .fixedSpaceType
         option.itemSpacing = 20
@@ -53,7 +53,7 @@ class CustomerViewController: JYBaseSegmentController {
             self.arrView.removeAll()
         }
     }
-    private var dataArr:[String] = ["限速","名义","天气","下雨","晴天霹雳"] {
+    private var dataArr:[String] = [] {
         didSet {
             for _ in dataArr {
                 let v = JYTestView()
@@ -63,19 +63,19 @@ class CustomerViewController: JYBaseSegmentController {
             }
             print("self.arrView.count = \(self.arrView.count)")
             print("self.arrVC.count = \(self.arrVC.count)")
-//            self.datas?.titles = dataArr
 //            self.datas?.childControllers = arrVC
+            self.datas?.childViews = arrView
+            self.datas?.titles = dataArr
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.datas = dataStruct(reloadStyle: option, titles: dataArr, childViews: arrView, childControllers: nil)
+        self.datas = dataStruct(reloadStyle: option, titles: dataArr, childViews: arrView, childControllers: nil)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.dataArr = ["限速","名义","天气","下雨","晴天霹雳","限速","名义","天气","下雨","晴天霹雳"]
-        topView.itemStyle = option
+        self.dataArr = ["限速","名义"]
         topView.reloadSegmentDatas()
     }
 }
