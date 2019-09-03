@@ -98,4 +98,20 @@ extension JYSegmentContentView : UIScrollViewDelegate {
         }
         self.lastIndex = index
     }
+    /// 解决手势返回与滑动手势冲突问题
+    open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return self.panBack(gestureRecognizer: gestureRecognizer)
+    }
+    private func panBack(gestureRecognizer:UIGestureRecognizer) -> Bool {
+        if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
+            let point = panGesture.translation(in: self)
+            if  UIGestureRecognizer.State.began == panGesture.state || UIGestureRecognizer.State.possible == panGesture.state {
+                let loctaion = panGesture.location(in: self)
+                if point.x > 0 && loctaion.x < 90 && self.contentOffset.x <= 0 {
+                    return false
+                }
+            }
+        }
+        return true
+    }
 }

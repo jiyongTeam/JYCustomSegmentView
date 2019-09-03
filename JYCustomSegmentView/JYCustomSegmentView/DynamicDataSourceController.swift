@@ -79,7 +79,7 @@ extension DynamicDataSourceController {
     
     private func configerUI() {
         self.setHeaderViewOptions()
-        contentView.addViewsToContentView(subViews: [JYTestView(),JYTestView(),JYTestView(),JYTestView(),JYTestView(),JYTestView(),JYTestView()])
+        contentView.addViewsToContentView(subViews: [JYTestView(),JYTestView(),JYTestView(),JYTestView(),JYTestView(),JYTestView(),JYTestView(),JYTestView()])
         self.view.addSubview(headerView)
         self.view.addSubview(contentView)
         let vd:[String:UIView] = ["headerView":headerView,"contentView":contentView]
