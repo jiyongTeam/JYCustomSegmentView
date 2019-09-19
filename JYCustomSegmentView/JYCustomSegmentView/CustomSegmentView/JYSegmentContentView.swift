@@ -17,6 +17,10 @@ open class JYSegmentContentView: UIScrollView {
     private var lastIndex:Int?
     private var currentIndex:Int?
     
+    public convenience init(subViews:[UIView]) {
+        self.init()
+        addViewsToContentView(subViews: subViews)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,15 +41,6 @@ open class JYSegmentContentView: UIScrollView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        if self.subviews.isEmpty == false {
-            let s_width = self.frame.size.width
-            let s_height = self.frame.size.height
-            for i in 0...self.subviews.count-1 {
-                let v = self.subviews[i]
-                v.frame = CGRect(x: s_width * CGFloat(i), y: 0, width: s_width, height: s_height)
-            }
-            self.contentSize = CGSize(width: s_width * CGFloat(self.subviews.count), height: s_height)
-        }
     }
 }
 
@@ -71,14 +66,22 @@ extension JYSegmentContentView {
         guard subViews.isEmpty == false,self.subviews.count != subViews.count else {
             return
         }
-        let s_width = self.frame.size.width
-        let s_height = self.frame.size.height
         for i in 0...subViews.count-1 {
-            let v = subViews[i]
-            v.translatesAutoresizingMaskIntoConstraints = true
-            v.frame = CGRect(x: s_width * CGFloat(i), y: 0, width: s_width, height: s_height)
-            self.addSubview(v)
+                let v = subViews[i]
+                v.translatesAutoresizingMaskIntoConstraints = false
+                self.addSubview(v)
+                var vd: [String: UIView] = ["v": v]
+                if i == 0 {
+                    self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[v]", options: [], metrics: nil, views: vd))
+                }else {
+                    vd["last"] = subViews[i - 1]
+                    self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[last][v(==last)]", options: [], metrics: nil, views: vd))
+                }
+                self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v]", options: [], metrics: nil, views: vd))
+                v.widthAnchor.constraint(equalTo: self.widthAnchor, constant: 0).isActive = true
+                v.heightAnchor.constraint(equalTo: self.heightAnchor, constant: 0).isActive = true
         }
+        self.contentSize.width = self.frame.size.width * CGFloat(subViews.count)
     }
     /// 重新设置contentOffSet
     open func resetScrollerViewContentOffSet(selectIndex:Int) {
