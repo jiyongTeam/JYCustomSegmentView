@@ -41,6 +41,7 @@ open class JYSegmentContentView: UIScrollView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
+        self.contentSize.width = self.frame.size.width * CGFloat(self.subviews.count)
     }
 }
 
@@ -81,7 +82,6 @@ extension JYSegmentContentView {
                 v.widthAnchor.constraint(equalTo: self.widthAnchor, constant: 0).isActive = true
                 v.heightAnchor.constraint(equalTo: self.heightAnchor, constant: 0).isActive = true
         }
-        self.contentSize.width = self.frame.size.width * CGFloat(subViews.count)
     }
     /// 重新设置contentOffSet
     open func resetScrollerViewContentOffSet(selectIndex:Int) {
