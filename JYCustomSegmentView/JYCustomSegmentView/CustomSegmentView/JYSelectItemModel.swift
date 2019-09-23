@@ -87,8 +87,27 @@ public struct JYSegmentItemStyle {
     /// 横线渐变色layer
     public var lineViewLayer:CAGradientLayer?
     
+//    public var itemStyleOption : JYItemSetStruct = JYItemSetStruct()
+    
     public init() {}
 }
+///// item相关设置
+//public struct JYItemSetStruct {
+//    /// 文本顶部间距
+//    var top:CGFloat = 0
+//    /// 文本底部间距
+//    var bottom:CGFloat = 0
+//    /// 文本默认颜色
+//    public var textNormalColor: UIColor = UIColor(red: 0.26, green: 0.26, blue: 0.26, alpha: 1)
+//    /// 文本默认字体
+//    public var textNormalFont: UIFont = UIFont.systemFont(ofSize: 16)
+//    /// 文本选中颜色
+//    public var textSelectColor:UIColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
+//    /// 文本选中字体
+//    public var textSelectFont: UIFont = UIFont.systemFont(ofSize: 16, weight: .medium)
+//    /// 按钮背景色
+//    public var itemBackGroundColor: UIColor = UIColor.red
+//}
 
 ///
 class LineViewSetModel: NSObject {

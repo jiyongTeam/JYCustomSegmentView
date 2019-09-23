@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		842B4E772338AD0F0016AC23 /* JYSelectItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B4E762338AD0F0016AC23 /* JYSelectItemView.swift */; };
 		847748A7230E28E400CE871A /* JYTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847748A6230E28E400CE871A /* JYTestView.swift */; };
 		847748AB230E347100CE871A /* JYBaseSegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847748AA230E347100CE871A /* JYBaseSegmentController.swift */; };
 		84871F93230B97100005FBA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871F92230B97100005FBA3 /* AppDelegate.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		842B4E762338AD0F0016AC23 /* JYSelectItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYSelectItemView.swift; sourceTree = "<group>"; };
 		847748A6230E28E400CE871A /* JYTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYTestView.swift; sourceTree = "<group>"; };
 		847748AA230E347100CE871A /* JYBaseSegmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYBaseSegmentController.swift; sourceTree = "<group>"; };
 		84871F8F230B97100005FBA3 /* JYCustomSegmentView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JYCustomSegmentView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				84871FC1230BE7CB0005FBA3 /* JYSelectItemModel.swift */,
+				842B4E762338AD0F0016AC23 /* JYSelectItemView.swift */,
 				84871FC4230BE7CB0005FBA3 /* JYCustomSegmentView.swift */,
 				84871FC5230BE7CB0005FBA3 /* JYSegmentContentView.swift */,
 				847748AA230E347100CE871A /* JYBaseSegmentController.swift */,
@@ -301,6 +304,7 @@
 				84871FC6230BE7CB0005FBA3 /* JYSelectItemModel.swift in Sources */,
 				84871FC8230BE7CB0005FBA3 /* JYTestVC.swift in Sources */,
 				84871FC9230BE7CB0005FBA3 /* JYCustomSegmentView.swift in Sources */,
+				842B4E772338AD0F0016AC23 /* JYSelectItemView.swift in Sources */,
 				847748A7230E28E400CE871A /* JYTestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
