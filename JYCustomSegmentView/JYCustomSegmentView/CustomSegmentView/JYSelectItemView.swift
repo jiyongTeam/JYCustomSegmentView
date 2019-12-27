@@ -37,11 +37,11 @@ class JYSelectItemView: UIView {
         setModel = option
         updateTitleText(text: title)
         isSelect = false
+        self.backgroundColor = option.itemBackGroundColor
         configerUI()
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = setModel.itemBackGroundColor
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
         self.addGestureRecognizer(tap)
     }
@@ -79,6 +79,6 @@ extension JYSelectItemView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(titleLabel)
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[titleLabel]|", options: [], metrics: nil, views: ["titleLabel":titleLabel]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(\(setModel.top))-[titleLabel]-\(setModel.bottom)-|", options: [], metrics: nil, views: ["titleLabel":titleLabel]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(>=0)-[titleLabel]-\(setModel.bottom)-|", options: [], metrics: nil, views: ["titleLabel":titleLabel]))
     }
 }

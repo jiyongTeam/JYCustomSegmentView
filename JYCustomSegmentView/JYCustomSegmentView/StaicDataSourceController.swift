@@ -16,6 +16,9 @@ class StaicDataSourceController: UIViewController {
         var s = JYSegmentItemStyle()
         s.itemViewType = .defaultType
         s.itemSpacing = 10
+//        s.barBackGroundColor = UIColor.magenta
+//        s.itemStyleOption.itemBackGroundColor = UIColor.yellow
+        s.itemStyleOption.bottom = 10
         return s
     }()
     private lazy var headerView = JYCustomSegmentView(dataArray: ["水调歌头","明月几时有","把酒问青天","不知天上宫阙","今夕是何年","但愿人长久","千里共婵娟"], option: self.style)

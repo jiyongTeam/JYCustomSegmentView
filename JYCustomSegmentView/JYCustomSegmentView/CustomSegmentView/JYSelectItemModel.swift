@@ -85,8 +85,6 @@ public struct JYSegmentItemStyle {
 public struct JYItemSetStruct {
     /// 是否显示选中状态
     public var isShowSelectStaus = true
-    /// 文本顶部间距
-    public var top:CGFloat = 0
     /// 文本底部间距
     public var bottom:CGFloat = 0
     /// 文本默认颜色
@@ -98,7 +96,7 @@ public struct JYItemSetStruct {
     /// 文本选中字体
     public var textSelectFont: UIFont = UIFont.systemFont(ofSize: 16, weight: .medium)
     /// 按钮背景色
-    public var itemBackGroundColor: UIColor = UIColor.white
+    public var itemBackGroundColor: UIColor = UIColor.clear
 }
 
 ///
