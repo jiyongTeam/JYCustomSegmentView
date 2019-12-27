@@ -20,7 +20,7 @@ class DynamicDataSourceController: UIViewController {
     }()
     private lazy var headerView = JYCustomSegmentView()
     private lazy var contentView = JYSegmentContentView()
-    private var dataArray:[String] = []
+    private var dataArray:[NSAttributedString] = []
     
     
     override func viewDidLoad() {
@@ -32,7 +32,17 @@ class DynamicDataSourceController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        dataArray = ["舒适","策士","基本数据","基本类型","测试","策士","测试卡","测"]
+//        dataArray = ["舒适","策士","基本数据","基本类型","测试","策士","测试卡","测"]
+        let att = NSAttributedString(attributedString: NSAttributedString(string: "9999", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12),NSAttributedString.Key.foregroundColor:UIColor.red]))
+        let att1 = NSMutableAttributedString(string: "全部 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
+        att1.append(att)
+        let att2 = NSMutableAttributedString(string: "好评 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
+        att2.append(att)
+        let att3 = NSMutableAttributedString(string: "中评 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
+        att3.append(att)
+        let att4 = NSMutableAttributedString(string: "差评 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
+        att4.append(att)
+        dataArray = [att1,att2,att3,att4]
         headerView.reloadSegmentDatas()
     }
 }
@@ -43,7 +53,7 @@ extension DynamicDataSourceController : JYSegmentContentViewDelegate,JYCustomize
         return dataArray.count
     }
     
-    func dataSourceOfSegmentView(in segmentView: JYCustomSegmentView) -> [String] {
+    func dataSourceOfSegmentView(in segmentView: JYCustomSegmentView) -> [Any] {
         return dataArray
     }
     
@@ -67,13 +77,16 @@ extension DynamicDataSourceController {
         var option = JYSegmentItemStyle()
         option.lineViewHeight = 5
         option.itemWidth = 80
-        option.itemBackGroundColor = UIColor.yellow
-        option.itemViewType = .fixedWidthType
+//        option.itemBackGroundColor = UIColor.yellow
+        option.itemViewType = .equalScreenType
         option.anmationViewType = .autoWidthLineType
         option.scrollType = .centerType
         option.itemSpacing = 20
         option.lineViewLayer = layer
         option.lineCornerRadius = 1
+        option.itemStyleOption.isShowSelectStaus = false
+        option.itemStyleOption.textSelectFont = option.itemStyleOption.textNormalFont
+        option.itemStyleOption.textSelectColor = option.itemStyleOption.textNormalColor
         headerView.itemStyle = option
     }
     

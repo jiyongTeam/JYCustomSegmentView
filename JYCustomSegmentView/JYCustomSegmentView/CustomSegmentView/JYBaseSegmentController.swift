@@ -54,7 +54,7 @@ extension JYBaseSegmentController:JYSegmentContentViewDelegate,JYCustomizeSegmen
         }
         return 0
     }
-    @objc open func dataSourceOfSegmentView(in segmentView: JYCustomSegmentView) -> [String] {
+    @objc open func dataSourceOfSegmentView(in segmentView: JYCustomSegmentView) -> [Any] {
         if let arr = datas?.titles {
             return arr
         }

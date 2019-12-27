@@ -94,7 +94,7 @@ extension CustomerViewController {
     override func numberOfSegmentView(in segmentView: JYCustomSegmentView) -> Int {
         return dataArr.count
     }
-    override func dataSourceOfSegmentView(in segmentView: JYCustomSegmentView) -> [String] {
+    override func dataSourceOfSegmentView(in segmentView: JYCustomSegmentView) -> [Any] {
         return dataArr
     }
 }

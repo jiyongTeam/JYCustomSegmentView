@@ -41,9 +41,9 @@ open class JYCustomSegmentView: UIScrollView {
     /// 存储item相关属性
     private lazy var itemModelArr:[LineViewSetModel] = []
     /// 存储item
-    private lazy var itemSubViews:[UIButton] = []
+    private lazy var itemSubViews:[JYSelectItemView] = []
     private var lastIndexModel:LineViewSetModel?
-    private var titleArray:[String]? {
+    private var titleArray:[Any]? {
         didSet {
             resetData()
         }
@@ -96,7 +96,7 @@ extension JYCustomSegmentView {
         }
         if dataArray.count == itemSubViews.count {
             for (index,item) in dataArray.enumerated() {
-                itemSubViews[index].setTitle(item, for: .normal)
+                itemSubViews[index].updateTitleText(text: item)
             }
         }else{
             /// 数据源改动，重新布局
@@ -104,8 +104,7 @@ extension JYCustomSegmentView {
         }
     }
     /// 点击切换item事件
-    @objc private func tapAction(tap:UIButton) {
-        let index = tap.tag - 100
+    @objc private func tapAction(index:Int) {
         if index != selectIndex {
             selectIndex = index
             self.segmentDelegate?.didSelectSegmentItem(in: self, selectIndex: index)
@@ -202,8 +201,7 @@ extension JYCustomSegmentView {
             return
         }
         let item = itemSubViews[currentIndex]
-        item.isSelected = selectStatus
-        item.titleLabel?.font = selectStatus == true ? itemStyle.textSelectFont : itemStyle.textNormalFont
+        item.isSelect = selectStatus
     }
 }
 
@@ -271,42 +269,34 @@ extension JYCustomSegmentView {
         let space = itemStyle.itemSpacing
         let s_width = self.frame.size.width
         for i in 0...(dataCount - 1) {
-            let btn = UIButton(type: .custom)
-            btn.backgroundColor = itemStyle.itemBackGroundColor
-            btn.setTitle(dataArr[i], for: .normal)
-            btn.setTitleColor(itemStyle.textNormalColor, for: .normal)
-            btn.setTitleColor(itemStyle.textSelectColor, for: .selected)
-            if selectIndex == i {
-                btn.titleLabel?.font = itemStyle.textSelectFont
-                btn.isSelected = true
-            }else{
-                btn.titleLabel?.font = itemStyle.textNormalFont
-                btn.isSelected = false
+            let titleItem = JYSelectItemView(option: itemStyle.itemStyleOption, title: dataArr[i])
+            titleItem.isSelect = selectIndex == i ? true : false
+            titleItem.tag = i + 100
+            titleItem.tapActionBlock {[weak self] (tag) in
+                self?.tapAction(index: tag - 100)
             }
-            btn.tag = i + 100
-            btn.addTarget(self, action: #selector(self.tapAction(tap:)), for: .touchUpInside)
-            contentView.addSubview(btn)
-            itemSubViews.append(btn)
+            contentView.addSubview(titleItem)
+            itemSubViews.append(titleItem)
             let model = LineViewSetModel()
-            let itemRect:CGRect = self.getTextRectSize(text: dataArr[i], font: itemStyle.textSelectFont, size: CGSize(width: 1000, height: 1000))
+            let itemRect:CGRect = self.getTextRectSize(text: dataArr[i], font: itemStyle.itemStyleOption.textSelectFont, size: CGSize(width: 1000, height: 1000))
             model.contentWidth = itemRect.size.width
             switch itemStyle.itemViewType {
             case .defaultType:
                 model.itemWidth = itemRect.size.width
                 if i == 0 {
-                    btn.frame = CGRect(x: 0, y: 0, width: itemRect.size.width, height: itemStyle.barHeight - itemStyle.lineViewHeight)
+                    titleItem.frame = CGRect(x: 0, y: 0, width: itemRect.size.width, height: itemStyle.barHeight - itemStyle.lineViewHeight)
                 }else {
                     let btn_x = itemSubViews[i-1].frame.origin.x + itemModelArr[i-1].itemWidth + itemStyle.itemSpacing
-                    btn.frame = CGRect(x: btn_x, y: 0, width: itemRect.size.width, height: itemStyle.barHeight - itemStyle.lineViewHeight)
+                    titleItem.frame = CGRect(x: btn_x, y: 0, width: itemRect.size.width, height: itemStyle.barHeight - itemStyle.lineViewHeight)
                 }
             case .equalScreenType:
                 model.itemWidth = s_width/CGFloat(dataCount)
-                btn.frame = CGRect(x: model.itemWidth * CGFloat(i), y: 0, width: model.itemWidth, height: itemStyle.barHeight - itemStyle.lineViewHeight)
+                titleItem.frame = CGRect(x: model.itemWidth * CGFloat(i), y: 0, width: model.itemWidth, height: itemStyle.barHeight - itemStyle.lineViewHeight)
             case .fixedWidthType:
                 model.itemWidth = itemStyle.itemWidth
-                btn.frame = CGRect(x: (model.itemWidth + space) * CGFloat(i), y: 0, width: model.itemWidth, height: itemStyle.barHeight - itemStyle.lineViewHeight)
+                titleItem.frame = CGRect(x: (model.itemWidth + space) * CGFloat(i), y: 0, width: model.itemWidth, height: itemStyle.barHeight - itemStyle.lineViewHeight)
             }
-            model.itemCenter = btn.center
+            model.itemCenter = titleItem.center
             model.modelIndex = i
             itemModelArr.append(model)
         }
@@ -330,11 +320,17 @@ extension JYCustomSegmentView {
         return result
     }
     /// 计算文字大小
-    private func getTextRectSize(text: String,font: UIFont,size: CGSize) -> CGRect {
-        let attributes = [NSAttributedString.Key.font: font]
-        let option = NSStringDrawingOptions.usesLineFragmentOrigin
-        let rect:CGRect = (text as NSString).boundingRect(with: size, options: option, attributes: attributes, context: nil)
-        return rect;
+    private func getTextRectSize(text: Any,font: UIFont,size: CGSize) -> CGRect {
+        if let textStr = text as? String {
+            let attributes = [NSAttributedString.Key.font: font]
+            let option = NSStringDrawingOptions.usesLineFragmentOrigin
+            let rect:CGRect = (textStr as NSString).boundingRect(with: size, options: option, attributes: attributes, context: nil)
+            return rect
+        }else if let textAtt = text as? NSAttributedString {
+            let rect = textAtt.boundingRect(with: size, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+            return rect
+        }
+        return CGRect.zero
     }
 }
 
