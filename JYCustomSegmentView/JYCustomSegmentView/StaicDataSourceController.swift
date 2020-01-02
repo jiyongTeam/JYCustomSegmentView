@@ -35,6 +35,13 @@ class StaicDataSourceController: UIViewController {
 extension StaicDataSourceController : JYSegmentContentViewDelegate,JYCustomizeSegmentDelegate {
     func scrollViewDeceleratingAction(currentIndex: Int) {
         self.headerView.updateSelectIndex(currentIndex: currentIndex)
+//        headerView.updateItemData(index: currentIndex, text: "测试111")
+//        let att = NSAttributedString(attributedString: NSAttributedString(string: "9999", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12),NSAttributedString.Key.foregroundColor:UIColor.red]))
+//        let att1 = NSMutableAttributedString(string: "全部 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
+//        att1.append(att)
+//        let att2 = NSMutableAttributedString(string: "好评 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
+//        att2.append(att)
+//        headerView.updateItemsData(indexs: [2,3], texts: [att1,att2])
     }
     
     func didSelectSegmentItem(in segmentView: JYCustomSegmentView, selectIndex: Int) {
@@ -50,7 +57,7 @@ extension StaicDataSourceController {
         self.view.addSubview(contentView)
         let vd:[String:UIView] = ["headerView":headerView,"contentView":contentView]
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[headerView]|", options: [], metrics: nil, views: vd))
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[headerView(\(style.barHeight))][contentView]", options: [.alignAllLeading,.alignAllTrailing], metrics: nil, views: vd))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[headerView][contentView]", options: [.alignAllLeading,.alignAllTrailing], metrics: nil, views: vd))
         headerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }

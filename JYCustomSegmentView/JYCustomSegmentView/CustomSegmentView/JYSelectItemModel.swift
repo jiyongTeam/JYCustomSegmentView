@@ -97,6 +97,8 @@ public struct JYItemSetStruct {
     public var textSelectFont: UIFont = UIFont.systemFont(ofSize: 16, weight: .medium)
     /// 按钮背景色
     public var itemBackGroundColor: UIColor = UIColor.clear
+    
+    public init() {}
 }
 
 ///

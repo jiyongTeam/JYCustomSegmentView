@@ -85,6 +85,25 @@ extension JYCustomSegmentView {
     open func reloadSegmentDatas() {
         titleArray = self.segmentDataSource?.dataSourceOfSegmentView(in: self)
     }
+    /// 更新某个item数据
+    open func updateItemData(index:Int,text:Any) {
+        if index < itemSubViews.count {
+            itemSubViews[index].updateTitleText(text: text)
+        }
+    }
+    /// 更新某组items数据
+    open func updateItemsData(indexs:[Int],texts:[Any]) {
+        if indexs.count == texts.count {
+            for i in 0...indexs.count - 1 {
+                if i < itemSubViews.count {
+                    let index = indexs[i]
+                    itemSubViews[index].updateTitleText(text: texts[i])
+                }
+            }
+        }else{
+            debugPrint("indexs与texts数据不一致")
+        }
+    }
 }
 
 // MARK: - 事件处理
@@ -214,6 +233,7 @@ extension JYCustomSegmentView {
         self.showsVerticalScrollIndicator = false
         self.bounces = false
         self.addSubview(contentView)
+        self.heightAnchor.constraint(equalToConstant: itemStyle.barHeight).isActive = true
     }
     /// 刷新等屏布局样式UI
     private func reloadEqualScreenTypeView() {
