@@ -20,7 +20,7 @@ class DynamicDataSourceController: UIViewController {
     }()
     private lazy var headerView = JYCustomSegmentView()
     private lazy var contentView = JYSegmentContentView()
-    private var dataArray:[NSAttributedString] = []
+    private var dataArray:[NSAttributedString] = [NSMutableAttributedString(string: "全部 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black]),NSMutableAttributedString(string: "好评 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black]),NSMutableAttributedString(string: "中评 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black]),NSMutableAttributedString(string: "差评 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])]
     
     
     override func viewDidLoad() {
@@ -84,9 +84,9 @@ extension DynamicDataSourceController {
         option.itemSpacing = 20
         option.lineViewLayer = layer
         option.lineCornerRadius = 1
-        option.itemStyleOption.isShowSelectStaus = false
-        option.itemStyleOption.textSelectFont = option.itemStyleOption.textNormalFont
-        option.itemStyleOption.textSelectColor = option.itemStyleOption.textNormalColor
+//        option.itemStyleOption.isShowSelectStaus = false
+//        option.itemStyleOption.textSelectFont = option.itemStyleOption.textNormalFont
+//        option.itemStyleOption.textSelectColor = option.itemStyleOption.textNormalColor
         headerView.itemStyle = option
     }
     

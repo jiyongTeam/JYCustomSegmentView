@@ -27,6 +27,7 @@ open class JYCustomSegmentView: UIScrollView {
     open weak var segmentDataSource:JYCustomizeSegmentDataSource? {
         didSet {
             titleArray = self.segmentDataSource?.dataSourceOfSegmentView(in: self)
+            resetData()
         }
     }
     open var itemStyle = JYSegmentItemStyle()
@@ -43,14 +44,11 @@ open class JYCustomSegmentView: UIScrollView {
     /// 存储item
     private lazy var itemSubViews:[JYSelectItemView] = []
     private var lastIndexModel:LineViewSetModel?
-    private var titleArray:[Any]? {
-        didSet {
-            resetData()
-        }
-    }
+    /// 数据源（接受String或NSAttributedString）
+    private var titleArray:[Any]?
 
-    /// 建议创建静态数据的view使用此初始化方法（如需刷新数据，使用代理设置数据源）
-    public convenience init(dataArray:[String]?,option:JYSegmentItemStyle) {
+    /// 建议创建静态数据的view使用此初始化方法（如需刷新数据，建议使用代理设置数据源，dataArray：接受String或NSAttributedString）
+    public convenience init(dataArray:[Any]?,option:JYSegmentItemStyle) {
         self.init()
         self.itemStyle = option
         if dataArray != nil {
@@ -84,20 +82,23 @@ extension JYCustomSegmentView {
     /// 代理刷新数据
     open func reloadSegmentDatas() {
         titleArray = self.segmentDataSource?.dataSourceOfSegmentView(in: self)
+        resetData()
     }
     /// 更新某个item数据
     open func updateItemData(index:Int,text:Any) {
         if index < itemSubViews.count {
             itemSubViews[index].updateTitleText(text: text)
+            resetItemData(updateIndex: index, text: text)
         }
     }
     /// 更新某组items数据
     open func updateItemsData(indexs:[Int],texts:[Any]) {
         if indexs.count == texts.count {
             for i in 0...indexs.count - 1 {
-                if i < itemSubViews.count {
-                    let index = indexs[i]
+                let index = indexs[i]
+                if index < itemSubViews.count {
                     itemSubViews[index].updateTitleText(text: texts[i])
+                    resetItemData(updateIndex: index, text: texts[i])
                 }
             }
         }else{
@@ -108,6 +109,16 @@ extension JYCustomSegmentView {
 
 // MARK: - 事件处理
 extension JYCustomSegmentView {
+    /// 更新某个item的数据
+    private func resetItemData(updateIndex:Int,text:Any) {
+        if var dataArray = titleArray , updateIndex < dataArray.count {
+            dataArray[updateIndex] = text
+            itemModelArr[updateIndex].contentWidth = self.getTextRectSize(text: text).width
+            if updateIndex ==  self.selectIndex {
+                resetAnmationLineViewFrame(currentIndex: self.selectIndex)
+            }
+        }
+    }
     /// 根据数据源刷新UI
     private func resetData() {
         guard let dataArray = titleArray,dataArray.isEmpty == false else {
@@ -116,6 +127,8 @@ extension JYCustomSegmentView {
         if dataArray.count == itemSubViews.count {
             for (index,item) in dataArray.enumerated() {
                 itemSubViews[index].updateTitleText(text: item)
+                itemModelArr[index].contentWidth = self.getTextRectSize(text: item).width
+                resetAnmationLineViewFrame(currentIndex: self.selectIndex)
             }
         }else{
             /// 数据源改动，重新布局
@@ -298,7 +311,7 @@ extension JYCustomSegmentView {
             contentView.addSubview(titleItem)
             itemSubViews.append(titleItem)
             let model = LineViewSetModel()
-            let itemRect:CGRect = self.getTextRectSize(text: dataArr[i], font: itemStyle.itemStyleOption.textSelectFont, size: CGSize(width: 1000, height: 1000))
+            let itemRect:CGRect = self.getTextRectSize(text: dataArr[i])
             model.contentWidth = itemRect.size.width
             switch itemStyle.itemViewType {
             case .defaultType:
@@ -340,8 +353,10 @@ extension JYCustomSegmentView {
         return result
     }
     /// 计算文字大小
-    private func getTextRectSize(text: Any,font: UIFont,size: CGSize) -> CGRect {
+    private func getTextRectSize(text: Any) -> CGRect {
+        let size = CGSize(width: 1000, height: 1000)
         if let textStr = text as? String {
+            let font = itemStyle.itemStyleOption.isShowSelectStaus == true ? itemStyle.itemStyleOption.textSelectFont : itemStyle.itemStyleOption.textNormalFont
             let attributes = [NSAttributedString.Key.font: font]
             let option = NSStringDrawingOptions.usesLineFragmentOrigin
             let rect:CGRect = (textStr as NSString).boundingRect(with: size, options: option, attributes: attributes, context: nil)

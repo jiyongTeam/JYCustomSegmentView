@@ -37,7 +37,6 @@ class JYSelectItemView: UIView {
         setModel = option
         updateTitleText(text: title)
         isSelect = false
-        self.backgroundColor = option.itemBackGroundColor
         configerUI()
     }
     override init(frame: CGRect) {
@@ -75,6 +74,9 @@ extension JYSelectItemView {
 extension JYSelectItemView {
 
     private func configerUI() {
+        self.backgroundColor = setModel.itemBackGroundColor
+        titleLabel.textColor = setModel.textNormalColor
+        titleLabel.font = setModel.textNormalFont
         titleLabel.textAlignment = .center
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(titleLabel)

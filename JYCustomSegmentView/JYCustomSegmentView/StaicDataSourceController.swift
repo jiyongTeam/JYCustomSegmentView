@@ -16,6 +16,8 @@ class StaicDataSourceController: UIViewController {
         var s = JYSegmentItemStyle()
         s.itemViewType = .defaultType
         s.itemSpacing = 10
+//        s.itemStyleOption.isShowSelectStaus = false
+        s.itemStyleOption.textNormalFont = UIFont.systemFont(ofSize: 12)
 //        s.barBackGroundColor = UIColor.magenta
 //        s.itemStyleOption.itemBackGroundColor = UIColor.yellow
         s.itemStyleOption.bottom = 10
@@ -36,12 +38,12 @@ extension StaicDataSourceController : JYSegmentContentViewDelegate,JYCustomizeSe
     func scrollViewDeceleratingAction(currentIndex: Int) {
         self.headerView.updateSelectIndex(currentIndex: currentIndex)
 //        headerView.updateItemData(index: currentIndex, text: "测试111")
-//        let att = NSAttributedString(attributedString: NSAttributedString(string: "9999", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12),NSAttributedString.Key.foregroundColor:UIColor.red]))
-//        let att1 = NSMutableAttributedString(string: "全部 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
-//        att1.append(att)
-//        let att2 = NSMutableAttributedString(string: "好评 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
-//        att2.append(att)
-//        headerView.updateItemsData(indexs: [2,3], texts: [att1,att2])
+        let att = NSAttributedString(attributedString: NSAttributedString(string: "9999", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12),NSAttributedString.Key.foregroundColor:UIColor.red]))
+        let att1 = NSMutableAttributedString(string: "全部 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
+        att1.append(att)
+        let att2 = NSMutableAttributedString(string: "好评 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
+        att2.append(att)
+        headerView.updateItemsData(indexs: [2,3], texts: [att1,att2])
     }
     
     func didSelectSegmentItem(in segmentView: JYCustomSegmentView, selectIndex: Int) {
