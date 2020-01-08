@@ -7,7 +7,9 @@
 //
 
 import UIKit
-
+/*
+ * 测试view
+ */
 class JYTestView: UIView {
 
     override init(frame: CGRect) {

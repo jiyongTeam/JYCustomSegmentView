@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  JYCustomSegmentView
 //
 //  Created by admin on 2019/8/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class HomeViewController: UIViewController {
     
     private lazy var tableView:UITableView = {
         let tab = UITableView(frame: .zero, style: .plain)
@@ -26,13 +26,14 @@ final class ViewController: UIViewController {
     }
 }
 
-extension ViewController : UITableViewDelegate,UITableViewDataSource {
+extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
+        cell.selectionStyle = .none
         cell.textLabel?.text = dataArray[indexPath.row]
         return cell
     }
@@ -51,7 +52,7 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource {
     }
 }
 
-extension ViewController {
+extension HomeViewController {
     
     private func configrUI() {
         self.view.addSubview(tableView)

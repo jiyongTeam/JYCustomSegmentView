@@ -11,7 +11,7 @@
 		847748A7230E28E400CE871A /* JYTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847748A6230E28E400CE871A /* JYTestView.swift */; };
 		847748AB230E347100CE871A /* JYBaseSegmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847748AA230E347100CE871A /* JYBaseSegmentController.swift */; };
 		84871F93230B97100005FBA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871F92230B97100005FBA3 /* AppDelegate.swift */; };
-		84871F95230B97100005FBA3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871F94230B97100005FBA3 /* ViewController.swift */; };
+		84871F95230B97100005FBA3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84871F94230B97100005FBA3 /* HomeViewController.swift */; };
 		84871F98230B97100005FBA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84871F96230B97100005FBA3 /* Main.storyboard */; };
 		84871F9A230B97110005FBA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84871F99230B97110005FBA3 /* Assets.xcassets */; };
 		84871F9D230B97110005FBA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84871F9B230B97110005FBA3 /* LaunchScreen.storyboard */; };
@@ -49,7 +49,7 @@
 		847748AA230E347100CE871A /* JYBaseSegmentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JYBaseSegmentController.swift; sourceTree = "<group>"; };
 		84871F8F230B97100005FBA3 /* JYCustomSegmentView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JYCustomSegmentView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84871F92230B97100005FBA3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		84871F94230B97100005FBA3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		84871F94230B97100005FBA3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		84871F97230B97100005FBA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84871F99230B97110005FBA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84871F9C230B97110005FBA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 			children = (
 				84871FC0230BE7CB0005FBA3 /* CustomSegmentView */,
 				84871F92230B97100005FBA3 /* AppDelegate.swift */,
-				84871F94230B97100005FBA3 /* ViewController.swift */,
+				84871F94230B97100005FBA3 /* HomeViewController.swift */,
 				84B73D4C2315190D00F16C4B /* StaicDataSourceController.swift */,
 				84B73D4E23151E6E00F16C4B /* DynamicDataSourceController.swift */,
 				84B73D502315211300F16C4B /* CustomerViewController.swift */,
@@ -296,7 +296,7 @@
 			files = (
 				84B73D512315211300F16C4B /* CustomerViewController.swift in Sources */,
 				84871FCA230BE7CB0005FBA3 /* JYSegmentContentView.swift in Sources */,
-				84871F95230B97100005FBA3 /* ViewController.swift in Sources */,
+				84871F95230B97100005FBA3 /* HomeViewController.swift in Sources */,
 				84B73D4F23151E6E00F16C4B /* DynamicDataSourceController.swift in Sources */,
 				84B73D4D2315190D00F16C4B /* StaicDataSourceController.swift in Sources */,
 				84871F93230B97100005FBA3 /* AppDelegate.swift in Sources */,
