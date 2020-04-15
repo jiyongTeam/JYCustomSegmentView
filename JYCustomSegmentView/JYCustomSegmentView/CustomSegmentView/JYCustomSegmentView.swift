@@ -55,6 +55,7 @@ open class JYCustomSegmentView: UIScrollView {
             titleArray = dataArray
             configerContentView()
         }
+        self.heightAnchor.constraint(equalToConstant: itemStyle.barHeight).isActive = true
     }
 
     override init(frame: CGRect) {
@@ -246,7 +247,6 @@ extension JYCustomSegmentView {
         self.showsVerticalScrollIndicator = false
         self.bounces = false
         self.addSubview(contentView)
-        self.heightAnchor.constraint(equalToConstant: itemStyle.barHeight).isActive = true
     }
     /// 刷新等屏布局样式UI
     private func reloadEqualScreenTypeView() {
