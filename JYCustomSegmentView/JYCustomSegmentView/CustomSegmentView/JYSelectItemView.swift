@@ -18,9 +18,11 @@ class JYSelectItemView: UIView {
                 if isSelect == true {
                     self.titleLabel.textColor = self.setModel.textSelectColor
                     self.titleLabel.font = self.setModel.textSelectFont
+                    self.backgroundColor = self.setModel.itemSelectBackGroundColor
                 }else{
                     self.titleLabel.textColor = self.setModel.textNormalColor
                     self.titleLabel.font = self.setModel.textNormalFont
+                    self.backgroundColor = self.setModel.itemBackGroundColor
                 }
             }
         }

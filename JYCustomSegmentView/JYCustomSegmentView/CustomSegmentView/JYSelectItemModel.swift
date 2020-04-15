@@ -95,8 +95,10 @@ public struct JYItemSetStruct {
     public var textSelectColor:UIColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1)
     /// 文本选中字体
     public var textSelectFont: UIFont = UIFont.systemFont(ofSize: 16, weight: .medium)
-    /// 按钮背景色
+    /// 默认按钮背景色
     public var itemBackGroundColor: UIColor = UIColor.clear
+    /// 选中按钮背景色
+    public var itemSelectBackGroundColor: UIColor?
     
     public init() {}
 }
