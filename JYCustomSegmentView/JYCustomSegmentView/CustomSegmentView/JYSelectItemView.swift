@@ -71,6 +71,20 @@ extension JYSelectItemView {
             debugPrint("未知的数据类型")
         }
     }
+    /// 获取文字大小
+    func getTextRectSize() -> CGRect {
+        let size = CGSize(width: 2000, height: 1000)
+        if let textStr = titleLabel.text {
+            let font = setModel.isShowSelectStaus == true ? setModel.textSelectFont : setModel.textNormalFont
+            let attText = NSAttributedString(string: textStr, attributes: [NSAttributedString.Key.font: font])
+            let rect:CGRect = attText.boundingRect(with: size, options: .usesLineFragmentOrigin, context: nil)
+            return rect
+        }else if let textAtt = titleLabel.attributedText {
+            let rect = textAtt.boundingRect(with: size, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+            return rect
+        }
+        return CGRect.zero
+    }
 }
 /// 布局
 extension JYSelectItemView {

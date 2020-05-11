@@ -87,6 +87,7 @@ extension JYSegmentContentView {
     open func resetScrollerViewContentOffSet(selectIndex:Int) {
         let s_width = self.frame.size.width
         self.setContentOffset(CGPoint(x: s_width * CGFloat(selectIndex), y: 0), animated: true)
+        lastIndex = selectIndex
     }
 }
 

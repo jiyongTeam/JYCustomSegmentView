@@ -39,9 +39,11 @@ public enum JYSegmentViewType {
 ///
 /// - defaultLineType: 默认类型：宽度与控件宽度一致
 /// - autoWidthLineType: 宽度与控件文字宽度保持一致
+/// - fixedWidthLineType: lineView的固定宽度
 public enum JYSegmentLineViewType {
     case defaultLineType
     case autoWidthLineType
+    case fixedWidthLineType(width:CGFloat)
 }
 
 /// 超出屏幕移动显示类型

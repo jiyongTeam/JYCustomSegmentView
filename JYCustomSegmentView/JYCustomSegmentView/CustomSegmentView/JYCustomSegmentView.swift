@@ -89,7 +89,12 @@ extension JYCustomSegmentView {
     open func updateItemData(index:Int,text:Any) {
         if index < itemSubViews.count {
             itemSubViews[index].updateTitleText(text: text)
-            resetItemData(updateIndex: index, text: text)
+            /// 更新控件ui
+            if itemStyle.itemViewType == .defaultType {
+                resetViewDefultTypeUI()
+            }else{
+                resetItemData(updateIndex: index, text: text)
+            }
         }
     }
     /// 更新某组items数据
@@ -99,8 +104,14 @@ extension JYCustomSegmentView {
                 let index = indexs[i]
                 if index < itemSubViews.count {
                     itemSubViews[index].updateTitleText(text: texts[i])
-                    resetItemData(updateIndex: index, text: texts[i])
+                    if itemStyle.itemViewType != .defaultType {
+                        resetItemData(updateIndex: index, text: texts[i])
+                    }
                 }
+            }
+            /// 更新U控件大小
+            if itemStyle.itemViewType == .defaultType {
+                resetViewDefultTypeUI()
             }
         }else{
             debugPrint("indexs与texts数据不一致")
@@ -143,20 +154,55 @@ extension JYCustomSegmentView {
             self.segmentDelegate?.didSelectSegmentItem(in: self, selectIndex: index)
         }
     }
+    /// 设置更新默认类型UI显示
+    private func resetViewDefultTypeUI() {
+        guard itemSubViews.count == itemModelArr.count else {
+            return
+        }
+        for (index,itemView) in itemSubViews.enumerated() {
+            let textWidth = itemView.getTextRectSize().size.width
+            itemModelArr[index].contentWidth = textWidth
+            itemModelArr[index].itemWidth = textWidth
+            itemModelArr[index].itemCenter = itemView.center
+            if index == 0 {
+                itemView.frame = CGRect(x: 0, y: 0, width: textWidth, height: itemStyle.barHeight - itemStyle.lineViewHeight)
+            }else{
+                let lastView_Width = itemSubViews[index-1].getTextRectSize().size.width
+                let btn_x = itemSubViews[index-1].frame.origin.x + lastView_Width + itemStyle.itemSpacing
+                itemView.frame = CGRect(x: btn_x, y: 0, width: textWidth, height: itemStyle.barHeight - itemStyle.lineViewHeight)
+            }
+            /// 更新下划线位置
+            if index == self.selectIndex {
+                resetAnmationLineViewFrame(currentIndex: index)
+            }
+        }
+        /// 更新scrollview 的contentsize
+        self.contentSize = CGSize(width: self.getArraySum() + (itemStyle.itemSpacing * CGFloat(itemSubViews.count - 1)), height: itemStyle.barHeight)
+        contentView.frame = CGRect(x: 0, y: 0, width: self.contentSize.width, height: itemStyle.barHeight)
+    }
     /// 设置更新动画线条的位置
     private func resetAnmationLineViewFrame(currentIndex:Int) {
         guard currentIndex < itemModelArr.count else {
             return
         }
         let model = itemModelArr[currentIndex]
-        var lineWidth = itemStyle.anmationViewType == .autoWidthLineType ? model.contentWidth : model.itemWidth
-        if itemStyle.anmationViewType == .autoWidthLineType , model.contentWidth > model.itemWidth {
-            lineWidth = model.itemWidth
+        var lineWidth:CGFloat = 0
+        switch itemStyle.anmationViewType {
+        case .autoWidthLineType:
+            if model.contentWidth > model.itemWidth {
+                lineWidth = model.itemWidth
+            }else{
+                lineWidth = model.contentWidth
+            }
+        case .defaultLineType:
+            lineWidth = itemStyle.itemWidth
+        case .fixedWidthLineType(let width):
+            lineWidth = width
         }
         anmationLineView.bounds = CGRect(x: 0, y: 0, width: lineWidth, height: itemStyle.lineViewHeight)
         anmationLineView.center.y = itemStyle.barHeight - itemStyle.lineViewHeight/2
         UIView.animate(withDuration: 0.25) {
-            self.anmationLineView.center.x = model.itemCenter.x
+            self.anmationLineView.center.x = self.itemSubViews[currentIndex].center.x
         }
         self.itemStyle.lineViewLayer?.frame = anmationLineView.bounds
         scrollerToVisible(currentIndex: currentIndex)
@@ -204,7 +250,7 @@ extension JYCustomSegmentView {
                 }
             }else if let lastModel = lastIndexModel ,model.modelIndex > lastModel.modelIndex {
                 /// 自左向右点击移动
-                guard nextIndex < itemModelArr.count else {
+                guard nextIndex < itemModelArr.count - 1  else {
                     /// 移动到最右边
                     let offSet = contentSize.width - s_width
                     self.setContentOffset(CGPoint(x: offSet, y: 0), animated: true)
