@@ -125,7 +125,7 @@ extension JYCustomSegmentView {
     private func resetItemData(updateIndex:Int,text:Any) {
         if var dataArray = titleArray , updateIndex < dataArray.count {
             dataArray[updateIndex] = text
-            itemModelArr[updateIndex].contentWidth = self.getTextRectSize(text: text).width
+            itemModelArr[updateIndex].contentWidth = self.getTextRectSize(text: text).width + 2
             if updateIndex ==  self.selectIndex {
                 resetAnmationLineViewFrame(currentIndex: self.selectIndex)
             }
@@ -139,7 +139,7 @@ extension JYCustomSegmentView {
         if dataArray.count == itemSubViews.count {
             for (index,item) in dataArray.enumerated() {
                 itemSubViews[index].updateTitleText(text: item)
-                itemModelArr[index].contentWidth = self.getTextRectSize(text: item).width
+                itemModelArr[index].contentWidth = self.getTextRectSize(text: item).width + 2
                 resetAnmationLineViewFrame(currentIndex: self.selectIndex)
             }
         }else{
@@ -160,14 +160,14 @@ extension JYCustomSegmentView {
             return
         }
         for (index,itemView) in itemSubViews.enumerated() {
-            let textWidth = itemView.getTextRectSize().size.width
+            let textWidth = itemView.getTextRectSize().size.width + 2
             itemModelArr[index].contentWidth = textWidth
             itemModelArr[index].itemWidth = textWidth
             itemModelArr[index].itemCenter = itemView.center
             if index == 0 {
                 itemView.frame = CGRect(x: 0, y: 0, width: textWidth, height: itemStyle.barHeight - itemStyle.lineViewHeight)
             }else{
-                let lastView_Width = itemSubViews[index-1].getTextRectSize().size.width
+                let lastView_Width = itemSubViews[index-1].getTextRectSize().size.width + 2
                 let btn_x = itemSubViews[index-1].frame.origin.x + lastView_Width + itemStyle.itemSpacing
                 itemView.frame = CGRect(x: btn_x, y: 0, width: textWidth, height: itemStyle.barHeight - itemStyle.lineViewHeight)
             }
@@ -358,7 +358,7 @@ extension JYCustomSegmentView {
             itemSubViews.append(titleItem)
             let model = LineViewSetModel()
             let itemRect:CGRect = self.getTextRectSize(text: dataArr[i])
-            model.contentWidth = itemRect.size.width
+            model.contentWidth = itemRect.size.width + 2
             switch itemStyle.itemViewType {
             case .defaultType:
                 model.itemWidth = itemRect.size.width

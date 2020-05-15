@@ -34,8 +34,6 @@ class StaicDataSourceController: UIViewController {
         configerUI()
         headerView.segmentDelegate = self
         contentView.pageViewDelegate = self
-        
-        
     }
 }
 
