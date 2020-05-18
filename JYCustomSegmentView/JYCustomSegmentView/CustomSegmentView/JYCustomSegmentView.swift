@@ -333,9 +333,7 @@ extension JYCustomSegmentView {
     /// 清空contentView的item
     private func clearContentViewActionItems() {
         contentView.subviews.forEach { (item) in
-            if let btn =  item as? UIButton {
-                btn.removeFromSuperview()
-            }
+            item.removeFromSuperview()
         }
         itemSubViews.removeAll()
         itemModelArr.removeAll()

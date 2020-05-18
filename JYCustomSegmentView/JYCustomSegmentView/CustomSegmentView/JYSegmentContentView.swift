@@ -68,19 +68,60 @@ extension JYSegmentContentView {
             return
         }
         for i in 0...subViews.count-1 {
-                let v = subViews[i]
-                v.translatesAutoresizingMaskIntoConstraints = false
-                self.addSubview(v)
-                var vd: [String: UIView] = ["v": v]
-                if i == 0 {
-                    self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[v]", options: [], metrics: nil, views: vd))
-                }else {
-                    vd["last"] = subViews[i - 1]
-                    self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[last][v(==last)]", options: [], metrics: nil, views: vd))
-                }
-                self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v]", options: [], metrics: nil, views: vd))
-                v.widthAnchor.constraint(equalTo: self.widthAnchor, constant: 0).isActive = true
-                v.heightAnchor.constraint(equalTo: self.heightAnchor, constant: 0).isActive = true
+            let v = subViews[i]
+            v.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(v)
+            var vd: [String: UIView] = ["v": v]
+            if i == 0 {
+                self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[v]", options: [], metrics: nil, views: vd))
+            }else {
+                vd["last"] = subViews[i - 1]
+                self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[last][v(==last)]", options: [], metrics: nil, views: vd))
+            }
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v]", options: [], metrics: nil, views: vd))
+            v.widthAnchor.constraint(equalTo: self.widthAnchor, constant: 0).isActive = true
+            v.heightAnchor.constraint(equalTo: self.heightAnchor, constant: 0).isActive = true
+        }
+    }
+    /// 横向插入一个view
+    open func insertView(view:UIView , index:Int) {
+        var subViews:[UIView] = self.subviews
+        subViews.insert(view, at: index)
+        for i in 0...subViews.count-1 {
+            let v = subViews[i]
+            v.translatesAutoresizingMaskIntoConstraints = false
+            if self.subviews.contains(view) == false {
+                self.addSubview(view)
+            }
+            var vd: [String: UIView] = ["v": v]
+            if i == 0 {
+                self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[v]", options: [], metrics: nil, views: vd))
+            }else {
+                vd["last"] = self.subviews[i - 1]
+                self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[last][v(==last)]", options: [], metrics: nil, views: vd))
+            }
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v]", options: [], metrics: nil, views: vd))
+            v.widthAnchor.constraint(equalTo: self.widthAnchor, constant: 0).isActive = true
+            v.heightAnchor.constraint(equalTo: self.heightAnchor, constant: 0).isActive = true
+        }
+    }
+    /// 横向移除一个view
+    open func removeView(view:UIView,index:Int) {
+        view.removeFromSuperview()
+        let subViews:[UIView] = self.subviews
+        for i in 0...subViews.count-1 {
+            let v = subViews[i]
+            v.translatesAutoresizingMaskIntoConstraints = false
+            var vd: [String: UIView] = ["v": v]
+            if i == 0 {
+                self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[v]", options: [], metrics: nil, views: vd))
+            }else {
+                vd["last"] = self.subviews[i - 1]
+                self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[last][v(==last)]", options: [], metrics: nil, views: vd))
+            }
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v]", options: [], metrics: nil, views: vd))
+            v.widthAnchor.constraint(equalTo: self.widthAnchor, constant: 0).isActive = true
+            v.heightAnchor.constraint(equalTo: self.heightAnchor, constant: 0).isActive = true
         }
     }
     /// 重新设置contentOffSet

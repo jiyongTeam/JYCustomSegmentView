@@ -64,6 +64,10 @@ public struct JYSegmentItemStyle {
     public var scrollType:JYScrollAnmationType = .fixedSpaceType
     /// 整个控件的高度
     public var barHeight:CGFloat = 60
+//    /// 整个控件左边距
+//    public var barLeading:CGFloat = 0
+//    /// 整个控件右边距
+//    public var barTring:CGFloat = 0
     /// 整个控件的背景色
     public var barBackGroundColor: UIColor = UIColor.clear
     /// 按钮宽度

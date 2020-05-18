@@ -14,7 +14,7 @@ class StaicDataSourceController: UIViewController {
 
     private lazy var style:JYSegmentItemStyle =  {
         var s = JYSegmentItemStyle()
-        s.itemViewType = .defaultType
+        s.itemViewType = .equalScreenType
         s.anmationViewType = .fixedWidthLineType(width: 30)
         s.scrollType = .fixedSpaceType
         s.itemSpacing = 10
@@ -25,8 +25,8 @@ class StaicDataSourceController: UIViewController {
         s.itemStyleOption.bottom = 10
         return s
     }()
-    private var testView1:JYTestView = JYTestView()
-    private lazy var headerView = JYCustomSegmentView(dataArray: ["水调歌头","明月几时有","把酒","问青天","不知天上","宫阙今夕是何年","我","悦城等","鬼区","又恐琼楼预约","高出","不胜寒","起舞弄轻盈","喝死","在人间"], option: self.style)
+    private var testView1:JYTestView = JYTestView() //,"宫阙今夕是何年","我","悦城等","鬼区","又恐琼楼预约","高出","不胜寒","起舞弄轻盈","喝死","在人间"
+    private lazy var headerView = JYCustomSegmentView(dataArray: ["水调歌头","明月几时有","把酒","问青天","不知天上","起舞弄轻盈","宫阙今夕是何年"], option: self.style)
     private lazy var contentView = JYSegmentContentView()
     
     override func viewDidLoad() {
