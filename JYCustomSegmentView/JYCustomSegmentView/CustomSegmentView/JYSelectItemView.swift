@@ -78,10 +78,12 @@ extension JYSelectItemView {
             let font = setModel.isShowSelectStaus == true ? setModel.textSelectFont : setModel.textNormalFont
             let attText = NSAttributedString(string: textStr, attributes: [NSAttributedString.Key.font: font])
             let rect:CGRect = attText.boundingRect(with: size, options: .usesLineFragmentOrigin, context: nil)
-            return rect
+            let newRect = CGRect(x: 0, y: 0, width: rect.size.width + 1, height: rect.size.height + 1)
+            return newRect
         }else if let textAtt = titleLabel.attributedText {
             let rect = textAtt.boundingRect(with: size, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-            return rect
+            let newRect = CGRect(x: 0, y: 0, width: rect.size.width + 1, height: rect.size.height + 1)
+            return newRect
         }
         return CGRect.zero
     }
