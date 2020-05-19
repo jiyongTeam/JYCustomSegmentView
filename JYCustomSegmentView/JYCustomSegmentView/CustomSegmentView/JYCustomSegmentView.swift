@@ -35,6 +35,7 @@ open class JYCustomSegmentView: UIScrollView {
     /// 动画view
     private lazy var anmationLineView : UIView = {
         let line = UIView()
+        line.tag = 1111
         line.backgroundColor = self.itemStyle.lineViewColor
         self.contentView.addSubview(line)
         return line
@@ -333,7 +334,9 @@ extension JYCustomSegmentView {
     /// 清空contentView的item
     private func clearContentViewActionItems() {
         contentView.subviews.forEach { (item) in
-            item.removeFromSuperview()
+            if item.tag != 1111 {
+                item.removeFromSuperview()
+            }
         }
         itemSubViews.removeAll()
         itemModelArr.removeAll()
@@ -342,6 +345,13 @@ extension JYCustomSegmentView {
     private func configerContentViewUI(dataCount:Int) {
         guard let dataArr = titleArray,dataArr.isEmpty == false else {
             return
+        }
+        if itemStyle.itemViewType == .equalScreenType || itemStyle.itemViewType == .defaultType {
+            if self.calculateBarIsEquleOrGreatScrren() == true {
+                self.itemStyle.itemViewType = .defaultType
+            }else{
+                self.itemStyle.itemViewType = .equalScreenType
+            }
         }
         let space = itemStyle.itemSpacing
         let s_width = self.frame.size.width
@@ -395,6 +405,22 @@ extension JYCustomSegmentView {
             result = result + item.itemWidth
         }
         return result
+    }
+    /// 计算所有字体宽度是否超过屏幕宽度
+    private func calculateBarIsEquleOrGreatScrren() -> Bool {
+        var barWith:CGFloat = 0
+        if let arr = titleArray {
+            for text in arr {
+                let with = self.getTextRectSize(text: text).width
+                barWith = barWith + with
+            }
+            barWith = barWith + itemStyle.itemSpacing * CGFloat(arr.count - 1) + itemStyle.barLeading + itemStyle.barTring
+        }
+        if barWith < UIScreen.main.bounds.size.width {
+            return false
+        }else{
+            return true
+        }
     }
     /// 计算文字大小
     private func getTextRectSize(text: Any) -> CGRect {

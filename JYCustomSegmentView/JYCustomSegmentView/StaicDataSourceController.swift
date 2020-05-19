@@ -22,11 +22,13 @@ class StaicDataSourceController: UIViewController {
         s.itemStyleOption.textNormalFont = UIFont.systemFont(ofSize: 12)
 //        s.barBackGroundColor = UIColor.magenta
         s.itemStyleOption.itemBackGroundColor = UIColor.yellow
+        s.barLeading = 20
+        s.barTring = 20
         s.itemStyleOption.bottom = 10
         return s
     }()
     private var testView1:JYTestView = JYTestView() //,"宫阙今夕是何年","我","悦城等","鬼区","又恐琼楼预约","高出","不胜寒","起舞弄轻盈","喝死","在人间"
-    private lazy var headerView = JYCustomSegmentView(dataArray: ["水调歌头","明月几时有","把酒"], option: self.style)
+    private lazy var headerView = JYCustomSegmentView(dataArray: ["水调歌头","明月几时有","把酒","宫阙今夕是何年"], option: self.style)
     private lazy var contentView = JYSegmentContentView()
     
     override func viewDidLoad() {

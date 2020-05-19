@@ -66,6 +66,7 @@ class CustomerViewController: JYBaseSegmentController {
 //            self.datas?.childControllers = arrVC
             self.datas?.childViews = arrView
             self.datas?.titles = dataArr
+            topView.reloadSegmentDatas()
         }
     }
 
@@ -76,7 +77,6 @@ class CustomerViewController: JYBaseSegmentController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.dataArr = ["限速","名义"]
-        topView.reloadSegmentDatas()
     }
 }
 
