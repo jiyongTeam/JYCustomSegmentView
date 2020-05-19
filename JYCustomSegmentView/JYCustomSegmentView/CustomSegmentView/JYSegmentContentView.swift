@@ -98,7 +98,7 @@ extension JYSegmentContentView {
         if index < subArr.count {
             subArr.remove(at: index)
         }
-        for item in subArr {
+        for item in self.subviews {
             item.removeFromSuperview()
         }
         addViewsToContentView(subViews: subArr)
