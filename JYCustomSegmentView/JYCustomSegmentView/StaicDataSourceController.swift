@@ -28,7 +28,7 @@ class StaicDataSourceController: UIViewController {
         return s
     }()
     private var testView1:JYTestView = JYTestView() //,"宫阙今夕是何年","我","悦城等","鬼区","又恐琼楼预约","高出","不胜寒","起舞弄轻盈","喝死","在人间"
-    private lazy var headerView = JYCustomSegmentView(dataArray: ["水调歌头","明月几时有","把酒","宫阙今夕是何年"], option: self.style)
+    private lazy var headerView = JYCustomSegmentView(dataArray: ["水调歌头","明月几时有","把酒"], option: self.style)
     private lazy var contentView = JYSegmentContentView()
     
     override func viewDidLoad() {
@@ -52,16 +52,6 @@ extension StaicDataSourceController : JYSegmentContentViewDelegate,JYCustomizeSe
 extension StaicDataSourceController {
     
     private func configerUI() {
-        testView1.btn1ActionBlock = {[weak self] in
-//            let att = NSAttributedString(attributedString: NSAttributedString(string: "9999", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12),NSAttributedString.Key.foregroundColor:UIColor.red]))
-//            let att1 = NSMutableAttributedString(string: "水调歌头 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
-//            att1.append(att)
-            self?.headerView.updateItemData(index: 0, text: "水调歌头 9999")
-            let bgview = UIView()
-            bgview.backgroundColor = UIColor.red
-//            self?.contentView.insertView(view: bgview, index: 2)
-            self?.contentView.removeView(index: 1)
-        }
         contentView.addViewsToContentView(subViews: [testView1,JYTestView(),JYTestView()])
         self.view.addSubview(headerView)
         self.view.addSubview(contentView)

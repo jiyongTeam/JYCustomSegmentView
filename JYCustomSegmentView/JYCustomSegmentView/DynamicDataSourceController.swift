@@ -38,7 +38,7 @@ class DynamicDataSourceController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        dataArray = ["舒适","策士基本数据","基本数据","基本类型","测试基本数据","策士基本数据","测试卡","测基本数据"]
+//        dataArray = ["舒适","策士基本数据","基本数据","基本类型","测试基本数据","策士基本数据","测试卡","测基本数据"]
 //        let att = NSAttributedString(attributedString: NSAttributedString(string: "9999", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12),NSAttributedString.Key.foregroundColor:UIColor.red]))
 //        let att1 = NSMutableAttributedString(string: "全部 ", attributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),NSAttributedString.Key.foregroundColor:UIColor.black])
 //        att1.append(att)
