@@ -128,10 +128,15 @@ extension JYSegmentContentView : UIScrollViewDelegate {
     }
     private func panBack(gestureRecognizer:UIGestureRecognizer) -> Bool {
         if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
-            let point = panGesture.translation(in: self)
-            if  UIGestureRecognizer.State.began == panGesture.state || UIGestureRecognizer.State.possible == panGesture.state {
-                let loctaion = panGesture.location(in: self)
-                if point.x > 0 && loctaion.x < 90 && self.contentOffset.x <= 0 {
+            if let v = panGesture.view {
+                let x = panGesture.velocity(in: v).x
+                // 显示第一页时，禁止左滑
+                if self.contentOffset.x <= 0 , x > 0 {
+                    return false
+                }
+                let maxX = self.contentSize.width - self.frame.size.width
+                // 显示最后一页，禁止右滑
+                if self.contentOffset.x >= maxX , x < 0 {
                     return false
                 }
             }
